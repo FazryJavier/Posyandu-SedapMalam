@@ -12,7 +12,7 @@ class GrafikPerkembanganController extends Controller
      */
     public function index()
     {
-        //
+        return view('Admin.Pages.GrafikPerkembangan.index');
     }
 
     /**

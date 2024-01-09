@@ -7,6 +7,7 @@ use App\Http\Controllers\DataOrangtuaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\TimbangAnakController;
+use App\Http\Controllers\GrafikPerkembanganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,4 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/timbang-anak/{id}/update', [TimbangAnakController::class, 'edit']);
     Route::put('/timbang-anak/{id}', [TimbangAnakController::class, 'update']);
     Route::delete('/timbang-anak/{id}', [TimbangAnakController::class, 'destroy']);
+
+    // Grafik Perkembangan
+    Route::get('/grafik-perkembangan', [GrafikPerkembanganController::class, 'index']);
 });
