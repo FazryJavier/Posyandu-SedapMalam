@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Households;
 
+use App\Filament\Actions\FamilyLinkActions;
 use App\Filament\Resources\Households\Pages\CreateHousehold;
 use App\Filament\Resources\Households\Pages\EditHousehold;
 use App\Filament\Resources\Households\Pages\ListHouseholds;
@@ -121,6 +122,7 @@ class HouseholdResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
+                ...FamilyLinkActions::all(compact: true),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

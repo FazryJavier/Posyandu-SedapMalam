@@ -291,7 +291,7 @@
                     <div class="col-lg-9 text-center text-lg-start">
                         <h3>Pantau Perkembangan Anak Anda</h3>
                         <p>Datanglah ke Posyandu secara rutin agar berat badan, tinggi badan, dan status gizi anak
-                            terpantau dengan baik. Kader kami siap membantu dan menjawab pertanyaan Anda.</p>
+                            terpantau dengan baik. Orang tua juga dapat melihat perkembangan anak kapan saja lewat link pribadi yang diberikan kader, tanpa perlu login. Kader kami siap membantu dan menjawab pertanyaan Anda.</p>
                     </div>
                     <div class="col-lg-3 cta-btn-container text-center">
                         <a class="cta-btn align-middle scrollto" href="#contact">Lihat Lokasi</a>
