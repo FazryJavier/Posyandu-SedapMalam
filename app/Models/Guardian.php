@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class DataOrangtua extends Model
+class Guardian extends Model
 {
     use HasFactory;
-    protected $table = 'data_orangtuas';
+
     protected $guarded = [];
 
-    public function dataanak()
+    public function children(): HasMany
     {
-        return $this->hasMany(DataAnak::class, 'IdOrangtua');
+        return $this->hasMany(Child::class);
     }
 }

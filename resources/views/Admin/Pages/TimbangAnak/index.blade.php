@@ -20,26 +20,26 @@
 
 @section('content')
     <div class="mb-3">
-        <label for="nama_anak" class="form-label">Nama Anak</label>
-        <select name="nama_anak" class="custom-select rounded-0" id="formGroupExampleInput" required>
+        <label for="name" class="form-label">Nama Anak</label>
+        <select name="name" class="custom-select rounded-0" id="formGroupExampleInput" required>
             <option value="">Pilih Nama Anak</option>
-            @foreach ($dataAnak as $item)
-                <option value="{{ $item->nik_anak }}" data-berat="{{ $item->berat_badan }}"
-                    data-tinggi="{{ $item->tinggi_badan }}">
-                    {{ $item->nama_anak }}
+            @foreach ($children as $child)
+                <option value="{{ $child->nik }}" data-weight="{{ $child->weight }}"
+                    data-height="{{ $child->height }}">
+                    {{ $child->name }}
                 </option>
             @endforeach
         </select>
     </div>
 
     <div class="mb-3">
-        <label for="berat_badan" class="form-label">Berat Badan</label>
-        <input type="text" name="berat_badan" class="form-control" id="berat_badan" required>
+        <label for="weight" class="form-label">Berat Badan</label>
+        <input type="text" name="weight" class="form-control" id="weight" required>
     </div>
 
     <div class="mb-3">
-        <label for="tinggi_badan" class="form-label">Tinggi Badan</label>
-        <input type="text" name="tinggi_badan" class="form-control" id="tinggi_badan" required>
+        <label for="height" class="form-label">Tinggi Badan</label>
+        <input type="text" name="height" class="form-control" id="height" required>
     </div>
 
     <button type="button" class="btn btn-primary" id="calculateBtn">Calculate</button>
@@ -55,14 +55,14 @@
             $('#formGroupExampleInput').change(function() {
                 var selectedOption = $(this).find(':selected');
 
-                $('#berat_badan').val(selectedOption.data('berat'));
-                $('#tinggi_badan').val(selectedOption.data('tinggi'));
+                $('#weight').val(selectedOption.data('weight'));
+                $('#height').val(selectedOption.data('height'));
             });
 
             $('#calculateBtn').click(function() {
-                var beratBadan = parseFloat($('#berat_badan').val()) || 0;
-                var tinggiBadan = parseFloat($('#tinggi_badan').val()) || 0;
-                var result = beratBadan + tinggiBadan;
+                var weightValue = parseFloat($('#weight').val()) || 0;
+                var heightValue = parseFloat($('#height').val()) || 0;
+                var result = weightValue + heightValue;
 
                 $('#result').val(result);
             });

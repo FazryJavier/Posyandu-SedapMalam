@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_kaders', function (Blueprint $table) {
+        Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kader');
-            $table->string('jabatan')->nullable();
-            $table->string('alamat');
-            $table->string('no_telpon');
-            $table->rememberToken();
+            $table->string('father_name');
+            $table->string('mother_name');
+            $table->string('address');
+            $table->string('phone', 20);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_kaders');
+        Schema::dropIfExists('guardians');
     }
 };

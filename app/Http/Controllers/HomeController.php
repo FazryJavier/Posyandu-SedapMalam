@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataAnak;
-use App\Models\DataKader;
-use App\Models\DataOrangtua;
+use App\Models\Cadre;
+use App\Models\Child;
+use App\Models\Guardian;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -29,9 +29,9 @@ class HomeController extends Controller
     {
         try {
             return [
-                'anak' => DataAnak::count(),
-                'keluarga' => DataOrangtua::count(),
-                'kader' => DataKader::count(),
+                'children' => Child::count(),
+                'guardians' => Guardian::count(),
+                'cadres' => Cadre::count(),
             ];
         } catch (Throwable $e) {
             Log::warning('Statistik landing page tidak tersedia: '.$e->getMessage());

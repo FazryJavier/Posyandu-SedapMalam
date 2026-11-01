@@ -31,52 +31,52 @@
                 <form action="/admin-registrasi-only" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" name="nama_kader"
-                            class="form-control @error('nama_kader') is-invalid @enderror" id="nama_kader"
-                            placeholder="Nama Kader" value="{{ old('nama_kader') }}">
+                        <input type="text" name="name"
+                            class="form-control @error('name') is-invalid @enderror" id="name"
+                            placeholder="Nama Kader" value="{{ old('name') }}">
                         <div class="input-group-append">
                             <div class="input-group-text"></div>
                         </div>
-                        @error('nama_kader')
+                        @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="jabatan"
-                            class="form-control @error('jabatan') is-invalid @enderror" id="jabatan"
-                            placeholder="Jabatan" value="{{ old('jabatan') }}">
+                        <input type="text" name="position"
+                            class="form-control @error('position') is-invalid @enderror" id="position"
+                            placeholder="Jabatan" value="{{ old('position') }}">
                         <div class="input-group-append">
                             <div class="input-group-text"></div>
                         </div>
-                        @error('jabatan')
+                        @error('position')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="alamat"
-                            class="form-control @error('alamat') is-invalid @enderror" id="alamat"
-                            placeholder="Alamat" value="{{ old('alamat') }}">
+                        <input type="text" name="address"
+                            class="form-control @error('address') is-invalid @enderror" id="address"
+                            placeholder="Alamat" value="{{ old('address') }}">
                         <div class="input-group-append">
                             <div class="input-group-text"></div>
                         </div>
-                        @error('alamat')
+                        @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="no_telpon"
-                            class="form-control @error('no_telpon') is-invalid @enderror" id="no_telpon"
-                            placeholder="Nomor Telpon" value="{{ old('no_telpon') }}">
+                        <input type="text" name="phone"
+                            class="form-control @error('phone') is-invalid @enderror" id="phone"
+                            placeholder="Nomor Telpon" value="{{ old('phone') }}">
                         <div class="input-group-append">
                             <div class="input-group-text"></div>
                         </div>
-                        @error('no_telpon')
+                        @error('phone')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

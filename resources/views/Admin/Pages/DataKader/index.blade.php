@@ -42,23 +42,23 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($dataKader as $key => $item)
+            @forelse ($cadres as $key => $cadre)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $item->nama_kader }}</td>
-                    <td>{{ $item->jabatan }}</td>
-                    <td>{{ $item->alamat }}</td>
-                    <td>{{ $item->no_telpon }}</td>
+                    <td>{{ $cadre->name }}</td>
+                    <td>{{ $cadre->position }}</td>
+                    <td>{{ $cadre->address }}</td>
+                    <td>{{ $cadre->phone }}</td>
                     <td>
-                        <form id="delete-form-{{ $item->id }}" action="/data-kader/{{ $item->id }}"
+                        <form id="delete-form-{{ $cadre->id }}" action="/data-kader/{{ $cadre->id }}"
                             method="POST">
                             @csrf
                             @method('DELETE')
                             <a href="#" type="button" class="btn btn-warning" data-toggle="modal"
-                                data-target="#modal-edit-{{ $item->id }}">
+                                data-target="#modal-edit-{{ $cadre->id }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <button type="button" class="btn btn-danger delete-btn" data-id="{{ $item->id }}">
+                            <button type="button" class="btn btn-danger delete-btn" data-id="{{ $cadre->id }}">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
@@ -87,20 +87,20 @@
                         @csrf
                         @method('POST')
                         <div class="mb-3">
-                            <label for="nama_kader" class="form-label">Nama Kader</label>
-                            <input type="text" name="nama_kader" class="form-control" id="formGroupExampleInput" required>
+                            <label for="name" class="form-label">Nama Kader</label>
+                            <input type="text" name="name" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="mb-3">
-                            <label for="jabatan" class="form-label">Jabatan</label>
-                            <input type="text" name="jabatan" class="form-control" id="formGroupExampleInput" required>
+                            <label for="position" class="form-label">Jabatan</label>
+                            <input type="text" name="position" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat Rumah</label>
-                            <textarea name="alamat" class="form-control" rows="2" required></textarea>
+                            <label for="address" class="form-label">Alamat Rumah</label>
+                            <textarea name="address" class="form-control" rows="2" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="no_telpon" class="form-label">Nomor Telpon</label>
-                            <input type="text" name="no_telpon" class="form-control" id="formGroupExampleInput" required>
+                            <label for="phone" class="form-label">Nomor Telpon</label>
+                            <input type="text" name="phone" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -113,8 +113,8 @@
     </div>
 
     {{-- Ubah Data --}}
-    @foreach ($dataKader as $item)
-        <div class="modal fade" id="modal-edit-{{ $item->id }}" data-backdrop="static">
+    @foreach ($cadres as $cadre)
+        <div class="modal fade" id="modal-edit-{{ $cadre->id }}" data-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -124,28 +124,28 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/data-kader/{{ $item->id }}" method="POST" enctype="multipart/form-data"
-                            id="updateForm-{{ $item->id }}">
+                        <form action="/data-kader/{{ $cadre->id }}" method="POST" enctype="multipart/form-data"
+                            id="updateForm-{{ $cadre->id }}">
                             @csrf
                             @method('PUT')
                             <div class="form-group mb-3">
-                                <label for="nama_kader" class="form-label">Nama Kader</label>
-                                <input type="text" name="nama_kader" class="form-control"
-                                    value="{{ $item->nama_kader }}" required>
+                                <label for="name" class="form-label">Nama Kader</label>
+                                <input type="text" name="name" class="form-control"
+                                    value="{{ $cadre->name }}" required>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" name="jabatan" class="form-control"
-                                    value="{{ $item->jabatan }}" required>
+                                <label for="position" class="form-label">Jabatan</label>
+                                <input type="text" name="position" class="form-control"
+                                    value="{{ $cadre->position }}" required>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <textarea name="alamat" class="form-control" rows="2" required>{{ $item->alamat }}</textarea>
+                                <label for="address" class="form-label">Alamat</label>
+                                <textarea name="address" class="form-control" rows="2" required>{{ $cadre->address }}</textarea>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="no_telpon" class="form-label">Nomor Telpon</label>
-                                <input type="text" name="no_telpon" class="form-control"
-                                    value="{{ $item->no_telpon }}" required>
+                                <label for="phone" class="form-label">Nomor Telpon</label>
+                                <input type="text" name="phone" class="form-control"
+                                    value="{{ $cadre->phone }}" required>
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

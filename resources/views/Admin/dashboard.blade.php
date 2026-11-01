@@ -23,7 +23,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>{{ $dataAnakCount }}</h3>
+                    <h3>{{ $childCount }}</h3>
                     <h5>Data Anak</h5>
                 </div>
                 <div class="icon">
@@ -35,7 +35,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>{{ $dataOrangtuaCount }}</h3>
+                    <h3>{{ $guardianCount }}</h3>
                     <h5>Data Orangtua</h5>
                 </div>
                 <div class="icon">
@@ -47,7 +47,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>{{ $dataKaderCount }}</h3>
+                    <h3>{{ $cadreCount }}</h3>
                     <p>Data Kader</p>
                 </div>
                 <div class="icon">

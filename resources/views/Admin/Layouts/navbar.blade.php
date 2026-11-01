@@ -12,7 +12,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fa-regular fa-circle-user"></i>
-                <span>{{ Auth::user()->nama_kader }}</span>
+                <span>{{ Auth::user()->name }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <a href="#" class="dropdown-item">

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('grafik_perkembangans', function (Blueprint $table) {
+        Schema::create('growth_records', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_anak');
-            $table->integer('berat_badan')->nullable();
-            $table->integer('tinggi_badan')->nullable();
+            $table->string('child_nik');
+            $table->foreign('child_nik')->references('nik')->on('children')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('weight')->nullable();
+            $table->integer('height')->nullable();
             $table->integer('bmi')->nullable();
-            $table->string('nik_anak')->nullable();
-            $table->foreign('nik_anak')->references('nik_anak')->on('data_anaks')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('grafik_perkembangans');
+        Schema::dropIfExists('growth_records');
     }
 };

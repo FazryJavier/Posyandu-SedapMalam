@@ -201,17 +201,17 @@
                     <div class="row text-center">
                         <div class="col-md-4 stat-item">
                             <i class="bi bi-emoji-smile"></i>
-                            <span class="stat-number">{{ number_format($stats['anak'], 0, ',', '.') }}</span>
+                            <span class="stat-number">{{ number_format($stats['children'], 0, ',', '.') }}</span>
                             <p>Anak Terdata</p>
                         </div>
                         <div class="col-md-4 stat-item">
                             <i class="bi bi-house-heart"></i>
-                            <span class="stat-number">{{ number_format($stats['keluarga'], 0, ',', '.') }}</span>
+                            <span class="stat-number">{{ number_format($stats['guardians'], 0, ',', '.') }}</span>
                             <p>Keluarga Terdaftar</p>
                         </div>
                         <div class="col-md-4 stat-item">
                             <i class="bi bi-person-hearts"></i>
-                            <span class="stat-number">{{ number_format($stats['kader'], 0, ',', '.') }}</span>
+                            <span class="stat-number">{{ number_format($stats['cadres'], 0, ',', '.') }}</span>
                             <p>Kader Bertugas</p>
                         </div>
                     </div>

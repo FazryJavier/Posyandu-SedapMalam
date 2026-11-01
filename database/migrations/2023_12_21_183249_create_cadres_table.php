@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_orangtuas', function (Blueprint $table) {
+        Schema::create('cadres', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_ayah');
-            $table->string('nama_ibu');
-            $table->string('alamat');
-            $table->string('no_telpon');
+            $table->string('name');
+            $table->string('position')->nullable();
+            $table->string('address');
+            $table->string('phone', 20);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_orangtuas');
+        Schema::dropIfExists('cadres');
     }
 };

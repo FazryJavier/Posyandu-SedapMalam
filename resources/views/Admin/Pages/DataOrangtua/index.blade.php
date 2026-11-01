@@ -42,23 +42,23 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($dataOrangtua as $key => $item)
+            @forelse ($guardians as $key => $guardian)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $item->nama_ayah }}</td>
-                    <td>{{ $item->nama_ibu }}</td>
-                    <td>{{ $item->alamat }}</td>
-                    <td>{{ $item->no_telpon }}</td>
+                    <td>{{ $guardian->father_name }}</td>
+                    <td>{{ $guardian->mother_name }}</td>
+                    <td>{{ $guardian->address }}</td>
+                    <td>{{ $guardian->phone }}</td>
                     <td>
-                        <form id="delete-form-{{ $item->id }}" action="/data-orangtua/{{ $item->id }}"
+                        <form id="delete-form-{{ $guardian->id }}" action="/data-orangtua/{{ $guardian->id }}"
                             method="POST">
                             @csrf
                             @method('DELETE')
                             <a href="#" type="button" class="btn btn-warning" data-toggle="modal"
-                                data-target="#modal-edit-{{ $item->id }}">
+                                data-target="#modal-edit-{{ $guardian->id }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <button type="button" class="btn btn-danger delete-btn" data-id="{{ $item->id }}">
+                            <button type="button" class="btn btn-danger delete-btn" data-id="{{ $guardian->id }}">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
@@ -87,20 +87,20 @@
                         @csrf
                         @method('POST')
                         <div class="mb-3">
-                            <label for="nama_ayah" class="form-label">Nama Ayah</label>
-                            <input type="text" name="nama_ayah" class="form-control" id="formGroupExampleInput" required>
+                            <label for="father_name" class="form-label">Nama Ayah</label>
+                            <input type="text" name="father_name" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="mb-3">
-                            <label for="nama_ibu" class="form-label">Nama Ibu</label>
-                            <input type="text" name="nama_ibu" class="form-control" id="formGroupExampleInput" required>
+                            <label for="mother_name" class="form-label">Nama Ibu</label>
+                            <input type="text" name="mother_name" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat Rumah</label>
-                            <textarea name="alamat" class="form-control" rows="2" required></textarea>
+                            <label for="address" class="form-label">Alamat Rumah</label>
+                            <textarea name="address" class="form-control" rows="2" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="no_telpon" class="form-label">Nomor Telpon</label>
-                            <input type="text" name="no_telpon" class="form-control" id="formGroupExampleInput" required>
+                            <label for="phone" class="form-label">Nomor Telpon</label>
+                            <input type="text" name="phone" class="form-control" id="formGroupExampleInput" required>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -113,8 +113,8 @@
     </div>
 
     {{-- Ubah Data --}}
-    @foreach ($dataOrangtua as $item)
-        <div class="modal fade" id="modal-edit-{{ $item->id }}" data-backdrop="static">
+    @foreach ($guardians as $guardian)
+        <div class="modal fade" id="modal-edit-{{ $guardian->id }}" data-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -124,28 +124,28 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/data-orangtua/{{ $item->id }}" method="POST" enctype="multipart/form-data"
-                            id="updateForm-{{ $item->id }}">
+                        <form action="/data-orangtua/{{ $guardian->id }}" method="POST" enctype="multipart/form-data"
+                            id="updateForm-{{ $guardian->id }}">
                             @csrf
                             @method('PUT')
                             <div class="form-group mb-3">
-                                <label for="nama_ayah" class="form-label">Nama Ayah</label>
-                                <input type="text" name="nama_ayah" class="form-control"
-                                    value="{{ $item->nama_ayah }}" required>
+                                <label for="father_name" class="form-label">Nama Ayah</label>
+                                <input type="text" name="father_name" class="form-control"
+                                    value="{{ $guardian->father_name }}" required>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="nama_ibu" class="form-label">Nama Ibu</label>
-                                <input type="text" name="nama_ibu" class="form-control"
-                                    value="{{ $item->nama_ibu }}" required>
+                                <label for="mother_name" class="form-label">Nama Ibu</label>
+                                <input type="text" name="mother_name" class="form-control"
+                                    value="{{ $guardian->mother_name }}" required>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <textarea name="alamat" class="form-control" rows="2" required>{{ $item->alamat }}</textarea>
+                                <label for="address" class="form-label">Alamat</label>
+                                <textarea name="address" class="form-control" rows="2" required>{{ $guardian->address }}</textarea>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="no_telpon" class="form-label">Nomor Telpon</label>
-                                <input type="text" name="no_telpon" class="form-control"
-                                    value="{{ $item->no_telpon }}" required>
+                                <label for="phone" class="form-label">Nomor Telpon</label>
+                                <input type="text" name="phone" class="form-control"
+                                    value="{{ $guardian->phone }}" required>
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

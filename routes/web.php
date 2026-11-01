@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DataAnakController;
-use App\Http\Controllers\DataKaderController;
-use App\Http\Controllers\DataOrangtuaController;
+use App\Http\Controllers\ChildController;
+use App\Http\Controllers\CadreController;
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\TimbangAnakController;
-use App\Http\Controllers\GrafikPerkembanganController;
+use App\Http\Controllers\WeighingController;
+use App\Http\Controllers\GrowthChartController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,33 +37,33 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Data Orangtua
-    Route::get('/data-orangtua', [DataOrangtuaController::class, 'index']);
-    Route::post('/data-orangtua', [DataOrangtuaController::class, 'store']);
-    Route::get('/data-orangtua/{id}/update', [DataOrangtuaController::class, 'edit']);
-    Route::put('/data-orangtua/{id}', [DataOrangtuaController::class, 'update']);
-    Route::delete('/data-orangtua/{id}', [DataOrangtuaController::class, 'destroy']);
+    Route::get('/data-orangtua', [GuardianController::class, 'index']);
+    Route::post('/data-orangtua', [GuardianController::class, 'store']);
+    Route::get('/data-orangtua/{id}/update', [GuardianController::class, 'edit']);
+    Route::put('/data-orangtua/{id}', [GuardianController::class, 'update']);
+    Route::delete('/data-orangtua/{id}', [GuardianController::class, 'destroy']);
 
     // Data Anak
-    Route::get('/data-anak', [DataAnakController::class, 'index']);
-    Route::post('/data-anak', [DataAnakController::class, 'store']);
-    Route::get('/data-anak/{id}/update', [DataAnakController::class, 'edit']);
-    Route::put('/data-anak/{id}', [DataAnakController::class, 'update']);
-    Route::delete('/data-anak/{id}', [DataAnakController::class, 'destroy']);
+    Route::get('/data-anak', [ChildController::class, 'index']);
+    Route::post('/data-anak', [ChildController::class, 'store']);
+    Route::get('/data-anak/{id}/update', [ChildController::class, 'edit']);
+    Route::put('/data-anak/{id}', [ChildController::class, 'update']);
+    Route::delete('/data-anak/{id}', [ChildController::class, 'destroy']);
 
     // Data Kader
-    Route::get('/data-kader', [DataKaderController::class, 'index']);
-    Route::post('/data-kader', [DataKaderController::class, 'store']);
-    Route::get('/data-kader/{id}/update', [DataKaderController::class, 'edit']);
-    Route::put('/data-kader/{id}', [DataKaderController::class, 'update']);
-    Route::delete('/data-kader/{id}', [DataKaderController::class, 'destroy']);
+    Route::get('/data-kader', [CadreController::class, 'index']);
+    Route::post('/data-kader', [CadreController::class, 'store']);
+    Route::get('/data-kader/{id}/update', [CadreController::class, 'edit']);
+    Route::put('/data-kader/{id}', [CadreController::class, 'update']);
+    Route::delete('/data-kader/{id}', [CadreController::class, 'destroy']);
 
     // Timbang Anak
-    Route::get('/timbang-anak', [TimbangAnakController::class, 'index']);
-    Route::post('/timbang-anak', [TimbangAnakController::class, 'store']);
-    Route::get('/timbang-anak/{id}/update', [TimbangAnakController::class, 'edit']);
-    Route::put('/timbang-anak/{id}', [TimbangAnakController::class, 'update']);
-    Route::delete('/timbang-anak/{id}', [TimbangAnakController::class, 'destroy']);
+    Route::get('/timbang-anak', [WeighingController::class, 'index']);
+    Route::post('/timbang-anak', [WeighingController::class, 'store']);
+    Route::get('/timbang-anak/{id}/update', [WeighingController::class, 'edit']);
+    Route::put('/timbang-anak/{id}', [WeighingController::class, 'update']);
+    Route::delete('/timbang-anak/{id}', [WeighingController::class, 'destroy']);
 
     // Grafik Perkembangan
-    Route::get('/grafik-perkembangan', [GrafikPerkembanganController::class, 'index']);
+    Route::get('/grafik-perkembangan', [GrowthChartController::class, 'index']);
 });

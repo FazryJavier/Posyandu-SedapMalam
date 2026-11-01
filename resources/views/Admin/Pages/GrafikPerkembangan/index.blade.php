@@ -18,13 +18,13 @@
 
 @section('content')
     <div class="mb-3">
-        <label for="nama_anak" class="form-label">Nama Anak</label>
-        <select name="nama_anak" class="custom-select rounded-0" id="formGroupExampleInput" required>
+        <label for="name" class="form-label">Nama Anak</label>
+        <select name="name" class="custom-select rounded-0" id="formGroupExampleInput" required>
             <option value="">Pilih Nama Anak</option>
-            {{-- @foreach ($dataAnak as $item)
-                <option value="{{ $item->nik_anak }}" data-berat="{{ $item->berat_badan }}"
-                    data-tinggi="{{ $item->tinggi_badan }}">
-                    {{ $item->nama_anak }}
+            {{-- @foreach ($children as $child)
+                <option value="{{ $child->nik }}" data-weight="{{ $child->weight }}"
+                    data-height="{{ $child->height }}">
+                    {{ $child->name }}
                 </option>
             @endforeach --}}
         </select>

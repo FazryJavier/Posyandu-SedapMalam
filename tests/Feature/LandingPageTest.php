@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\DataAnak;
-use App\Models\DataKader;
-use App\Models\DataOrangtua;
+use App\Models\Cadre;
+use App\Models\Child;
+use App\Models\Guardian;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -80,19 +80,19 @@ class LandingPageTest extends TestCase
 
     public function test_statistics_show_live_counts_from_database(): void
     {
-        $orangtua = DataOrangtua::create([
-            'nama_ayah' => 'Budi',
-            'nama_ibu' => 'Siti',
-            'alamat' => 'Bandung',
-            'no_telpon' => '081234567890',
+        $guardian = Guardian::create([
+            'father_name' => 'Budi',
+            'mother_name' => 'Siti',
+            'address' => 'Bandung',
+            'phone' => '081234567890',
         ]);
-        DataAnak::create([
-            'nik_anak' => '3273000000000001',
-            'nama_anak' => 'Ani',
-            'umur' => 2,
-            'IdOrangtua' => $orangtua->id,
+        Child::create([
+            'nik' => '3273000000000001',
+            'name' => 'Ani',
+            'age' => 2,
+            'guardian_id' => $guardian->id,
         ]);
-        DataKader::create(['nama_kader' => 'Wini', 'alamat' => 'Bandung', 'no_telpon' => '081200000000']);
+        Cadre::create(['name' => 'Wini', 'address' => 'Bandung', 'phone' => '081200000000']);
 
         $response = $this->get('/');
 
