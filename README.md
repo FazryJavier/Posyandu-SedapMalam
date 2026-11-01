@@ -1,9 +1,9 @@
 # Posyandu Sedap Malam
 
-Sistem informasi **Posyandu Sedap Malam** (RW 11, Kelurahan Sukaluyu, Kecamatan Cibeunying Kaler, Kota Bandung). Aplikasi ini terdiri dari dua bagian:
+Sistem informasi **Posyandu Sedap Malam** (RW 11, Kelurahan Sukaluyu, Kecamatan Cibeunying Kaler, Kota Bandung). Terdiri dari dua bagian:
 
-- **Website publik** (`/`) berisi profil posyandu, alur pelayanan, jadwal imunisasi, tips kesehatan, galeri, struktur kader, FAQ, serta lokasi.
-- **Panel kader** (`/login`) untuk mengelola data orang tua, anak, dan kader, mencatat penimbangan, serta melihat grafik perkembangan anak.
+- **Website publik** (`/`): profil posyandu, alur pelayanan, jadwal imunisasi, tips kesehatan, galeri, struktur kader, FAQ, dan lokasi. Isinya dikelola lewat CMS.
+- **Panel admin** (`/admin`): pendataan warga per RT, pencatatan penimbangan bulanan, grafik perkembangan anak, data kader, manajemen akun dan peran (RBAC), serta CMS website.
 
 [![CI](https://github.com/FazryJavier/Posyandu-SedapMalam/actions/workflows/ci.yml/badge.svg)](https://github.com/FazryJavier/Posyandu-SedapMalam/actions/workflows/ci.yml)
 
@@ -12,18 +12,20 @@ Sistem informasi **Posyandu Sedap Malam** (RW 11, Kelurahan Sukaluyu, Kecamatan 
 | Bagian | Teknologi |
 |---|---|
 | Backend | PHP 8.4, Laravel 12 |
+| Panel admin | Filament 4 (Livewire) |
+| RBAC | spatie/laravel-permission + Filament Shield |
 | Database | MySQL 8 (tes otomatis memakai SQLite in-memory) |
 | Website publik | Blade, Bootstrap 5, template Arsha (BootstrapMade) |
-| Panel kader | Blade, AdminLTE 3 |
 | Pengujian | PHPUnit 11 |
 | CI | GitHub Actions |
 
+Panel admin memakai Filament, bukan AdminLTE, karena Filament sudah menyediakan CRUD, form, tabel, filter, grafik, otentikasi, dan RBAC siap pakai, sedangkan AdminLTE hanya tema HTML sehingga seluruh logika CRUD dan otorisasi harus ditulis manual.
+
 ## Prasyarat
 
-- PHP 8.4 dengan ekstensi `mbstring`, `pdo_mysql`, `pdo_sqlite`, `xml`, `fileinfo`, `bcmath`
+- PHP 8.4 dengan ekstensi `mbstring`, `pdo_mysql`, `pdo_sqlite`, `intl`, `xml`, `fileinfo`, `bcmath`
 - Composer 2
 - MySQL 8 (atau MariaDB yang kompatibel)
-- Node.js 20+ hanya diperlukan bila ingin menjalankan Vite (`npm run dev`); tampilan saat ini tidak memerlukannya
 
 ## Memulai
 
@@ -36,75 +38,85 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Buat database kosong, lalu sesuaikan `DB_*` pada `.env` (nilai bawaan: database `sedapmalam`, pengguna `root`, tanpa kata sandi):
+Buat database kosong, lalu sesuaikan `DB_*` pada `.env` (bawaan: database `sedapmalam`, pengguna `root`, tanpa kata sandi):
 
 ```sql
 CREATE DATABASE sedapmalam CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
+Isi data super admin pertama di `.env` (hanya dibaca saat seeding, jangan di-commit):
+
+```dotenv
+ADMIN_NAME="Administrator"
+ADMIN_EMAIL=admin@contoh.id
+ADMIN_PASSWORD=ganti-dengan-kata-sandi-kuat
+```
+
 ```bash
-php artisan migrate
+php artisan migrate --seed
+php artisan storage:link
 php artisan serve
 ```
 
-Buka <http://127.0.0.1:8000>. Pengguna Laragon dapat menjalankan MySQL dari Laragon, membuat database `sedapmalam`, lalu menjalankan perintah di atas tanpa mengubah `.env`.
+- Website publik: <http://127.0.0.1:8000>
+- Panel admin: <http://127.0.0.1:8000/admin> (masuk memakai `ADMIN_EMAIL` dan `ADMIN_PASSWORD`)
+
+`--seed` membuat peran dan izin, akun super admin dari `.env`, serta mengisi CMS dengan teks bawaan dari `config/posyandu.php`. Seeder aman dijalankan ulang: data yang sudah ada tidak ditimpa dan kata sandi akun yang sudah ada tidak diubah. `storage:link` diperlukan agar foto galeri yang diunggah tampil.
 
 > Jangan menjalankan `migrate:fresh`, `migrate:refresh`, atau `db:wipe` pada database yang berisi data nyata karena perintah tersebut menghapus seluruh tabel.
 
-### Akun kader pertama
+Pengguna Laragon dapat menyalakan MySQL dari Laragon, membuat database `sedapmalam`, lalu menjalankan perintah di atas.
 
-Akun dibuat lewat halaman pendaftaran tersembunyi `/admin-registrasi-only`, lalu masuk di `/login` menggunakan `username` dan kata sandi yang didaftarkan. Halaman pendaftaran belum dilindungi login, jadi batasi aksesnya di lingkungan produksi.
+## Peran dan hak akses (RBAC)
 
-## Konfigurasi `.env`
+Izin dibuat otomatis oleh Filament Shield dengan format `Aksi:Entitas` (contoh `Update:Resident`). Akun tanpa peran, atau yang dinonaktifkan, tidak dapat membuka panel.
 
-| Variabel | Bawaan | Keterangan |
-|---|---|---|
-| `APP_NAME` | `Posyandu Sedap Malam` | Nama aplikasi |
-| `APP_URL` | `http://localhost` | URL dasar aplikasi |
-| `APP_LOCALE` | `id` | Locale aplikasi; pesan bawaan Laravel masih memakai bahasa Inggris (fallback `en`) |
-| `DB_CONNECTION` | `mysql` | Driver database |
-| `DB_HOST` / `DB_PORT` | `127.0.0.1` / `3306` | Alamat server MySQL |
-| `DB_DATABASE` | `sedapmalam` | Nama database |
-| `DB_USERNAME` / `DB_PASSWORD` | `root` / kosong | Kredensial database; ganti di produksi |
-| `SESSION_DRIVER` | `file` | Penyimpanan sesi |
-| `CACHE_STORE` | `file` | Penyimpanan cache |
-| `QUEUE_CONNECTION` | `sync` | Antrean dijalankan langsung |
-
-Jangan menyimpan `.env` di Git. Gunakan `.env.example` sebagai acuan.
-
-## Struktur database
-
-Seluruh tabel dan kolom memakai bahasa Inggris. Relasi: satu `guardian` memiliki banyak `children`, dan satu `child` memiliki banyak `growth_records`.
-
-| Tabel | Kolom utama |
+| Peran | Cakupan |
 |---|---|
-| `users` (akun kader untuk login) | `id`, `name`, `position`, `address`, `phone`, `username` (unik), `password` |
-| `guardians` (orang tua) | `id`, `father_name`, `mother_name`, `address`, `phone` |
-| `children` (anak) | `nik` (PK), `name`, `age`, `weight`, `height`, `head_circumference`, `arm_circumference`, `bmi`, `guardian_id` (FK ke `guardians`, cascade) |
-| `cadres` (data kader) | `id`, `name`, `position`, `address`, `phone` |
-| `growth_records` (riwayat pertumbuhan) | `id`, `child_nik` (FK ke `children.nik`, cascade), `weight`, `height`, `bmi` |
+| `super_admin` | Seluruh fitur, termasuk mengelola peran dan izin (menu *Roles*) |
+| `admin` | Mengelola RT/RW, keluarga, warga, kegiatan, kader, dan CMS; membuat dan mengubah akun, tanpa menghapus permanen dan tanpa mengubah peran |
+| `cadre` | Mencatat keluarga, warga, dan penimbangan; hanya melihat RT/RW dan data kader; tidak dapat menghapus |
+| `content_editor` | Hanya konten website (pengaturan, program, FAQ, galeri) dan melihat data kader |
 
-Model Eloquent: `User`, `Guardian`, `Child`, `Cadre`, `GrowthRecord`.
+Peran dapat disesuaikan di panel admin pada menu *Roles*. Matriks bawaan ada di `database/seeders/RolesAndPermissionsSeeder.php`.
 
-## Rute
+## Struktur data
 
-| URL | Akses | Fungsi |
-|---|---|---|
-| `/` | Publik | Website profil posyandu |
-| `/login`, `/logout` | Publik | Masuk dan keluar |
-| `/admin-registrasi-only` | Publik (tersembunyi) | Pendaftaran akun kader |
-| `/dashboard` | Login | Ringkasan jumlah orang tua, anak, dan kader |
-| `/data-orangtua`, `/data-anak`, `/data-kader` | Login | CRUD data orang tua, anak, dan kader |
-| `/timbang-anak` | Login | Halaman penimbangan (masih dalam pengembangan) |
-| `/grafik-perkembangan` | Login | Grafik perkembangan (masih dalam pengembangan) |
+Data dibagi dua kelompok: **data warga** (RT, keluarga, warga, penimbangan) dan **data internal** (kader, akun, peran) ditambah **CMS** untuk konten website.
 
-URL tetap berbahasa Indonesia agar mudah dikenali kader; nama controller, model, dan kolom database memakai bahasa Inggris.
+```mermaid
+erDiagram
+    neighborhoods ||--o{ households : "per RT"
+    households ||--o{ residents : "anggota keluarga"
+    residents ||--o{ residents : "ayah / ibu"
+    residents ||--o{ growth_records : "riwayat pertumbuhan"
+    posyandu_sessions ||--o{ growth_records : "penimbangan"
+    users ||--o| cadres : "akun login (opsional)"
+    users }o--o{ roles : "RBAC"
+```
 
-## Mengubah isi website publik
+| Tabel | Isi |
+|---|---|
+| `neighborhoods` | RT/RW (unik per pasangan RW dan RT), ketua RT |
+| `households` | Kartu Keluarga per RT: no. KK, alamat, air bersih, jamban sehat, bantuan sosial, jaminan kesehatan |
+| `residents` | Semua anggota keluarga (kepala keluarga, pasangan, anak, orang tua, saudara, lainnya) dengan NIK, jenis kelamin, tanggal lahir, tautan ayah dan ibu, serta status (aktif, pindah, meninggal) |
+| `posyandu_sessions` | Satu hari kegiatan posyandu (biasanya bulanan) |
+| `growth_records` | Tabel penghubung kegiatan dan anak: berat, tinggi, lingkar kepala, lingkar lengan, usia (bulan), BMI. Satu anak hanya satu pengukuran per kegiatan |
+| `cadres` | Direktori kader dan struktur organisasi (ketua, pengurus, kader seksi); dapat ditautkan ke akun login |
+| `users`, `roles`, `permissions` | Akun admin dan RBAC |
+| `site_settings`, `programs`, `faqs`, `gallery_items` | Konten website yang dikelola CMS |
 
-Seluruh teks halaman `/` dibaca dari [`config/posyandu.php`](config/posyandu.php): nama, tagline, alamat, jadwal, kontak, visi dan misi, layanan, jadwal imunisasi, tips, FAQ, dan organigram kader. Nilai `null` pada `telepon`, `whatsapp`, `email`, dan `jadwal` akan menyembunyikan bagian terkait atau menampilkan teks pengganti. Foto galeri berada di `public/assets/img/Fotos/`.
+Usia anak dan BMI (`berat / tinggi²`) dihitung otomatis saat pengukuran disimpan. Grafik perkembangan (BMI dan berat per bulan) tampil di halaman ubah data warga.
 
-Bagian statistik di website mengambil jumlah anak, orang tua, dan kader dari database, dan otomatis disembunyikan bila database tidak dapat dijangkau.
+## Mengelola konten website (CMS)
+
+Menu **Konten Website** pada panel admin:
+
+- **Pengaturan Website**: tagline, jadwal, tentang kami, sasaran, visi, misi, alamat, dan kontak.
+- **Program Kerja**, **FAQ**, **Galeri Foto**: tambah, ubah, urutkan, dan sembunyikan.
+- **Kader** (menu Internal): data kader dengan opsi *Tampilkan di website* untuk organigram.
+
+Konten dari database menggantikan nilai bawaan di [`config/posyandu.php`](config/posyandu.php). Bila database kosong atau tidak dapat dijangkau, website tetap tampil dari nilai bawaan tersebut.
 
 ## Menjalankan tes
 
@@ -112,9 +124,7 @@ Bagian statistik di website mengambil jumlah anak, orang tua, dan kader dari dat
 php artisan test
 ```
 
-Tes memakai SQLite in-memory (lihat `phpunit.xml`), sehingga tidak memerlukan MySQL dan tidak menyentuh database lokal. Cakupan: halaman publik, struktur skema bahasa Inggris, pendaftaran dan login, serta CRUD orang tua, anak, dan kader.
-
-Pemeriksaan keamanan dependensi:
+Tes memakai SQLite in-memory (lihat `phpunit.xml`), sehingga tidak memerlukan MySQL dan tidak menyentuh database lokal. Cakupan: halaman publik dan CMS, skema, relasi dan aturan data, otorisasi per peran, serta form Filament (RT, keluarga, anggota keluarga, penimbangan, pengaturan website).
 
 ```bash
 composer audit
@@ -126,11 +136,17 @@ GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) berjalan
 
 ## Alur kontribusi
 
-1. Buat branch dari `main`, misalnya `feat/nama-fitur` atau `fix/nama-perbaikan`. Jangan commit langsung ke `main`.
-2. Gunakan pesan commit [Conventional Commits](https://www.conventionalcommits.org/) (`feat(scope): ringkasan`).
+1. Buat branch dari `main`, misalnya `feat/nama-fitur`. Jangan commit langsung ke `main`.
+2. Gunakan pesan commit [Conventional Commits](https://www.conventionalcommits.org/).
 3. Pastikan `php artisan test` lulus, lalu buka pull request ke `main` dengan deskripsi perubahan dan hasil pengujian.
+
+## Keamanan dan privasi
+
+- NIK, nomor KK, dan data kesehatan anak adalah data pribadi. Batasi akses lewat peran, jangan membagikan ekspor data, dan jangan menaruh `.env` atau cadangan database di repositori.
+- Kredensial super admin hanya dibaca dari `.env` saat seeding.
+- Gunakan HTTPS dan kata sandi kuat di produksi, dan set `APP_DEBUG=false`.
 
 ## Kredit
 
 - Template website publik: [Arsha](https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/) oleh BootstrapMade.
-- Panel kader: [AdminLTE](https://adminlte.io/).
+- Panel admin: [Filament](https://filamentphp.com/) dan [Filament Shield](https://github.com/bezhanSalleh/filament-shield).
