@@ -44,7 +44,7 @@
                     <li><a class="nav-link scrollto" href="#portfolio">Galeri</a></li>
                     <li><a class="nav-link scrollto" href="#team">Kader</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Lokasi</a></li>
-                    <li><a class="getstarted" href="{{ url('/login') }}">Login</a></li>
+                    <li><a class="getstarted" href="{{ url('/admin/login') }}">Login</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -202,17 +202,17 @@
                         <div class="col-md-4 stat-item">
                             <i class="bi bi-emoji-smile"></i>
                             <span class="stat-number">{{ number_format($stats['children'], 0, ',', '.') }}</span>
-                            <p>Anak Terdata</p>
+                            <p>Balita Terdata</p>
                         </div>
                         <div class="col-md-4 stat-item">
                             <i class="bi bi-house-heart"></i>
-                            <span class="stat-number">{{ number_format($stats['guardians'], 0, ',', '.') }}</span>
+                            <span class="stat-number">{{ number_format($stats['households'], 0, ',', '.') }}</span>
                             <p>Keluarga Terdaftar</p>
                         </div>
                         <div class="col-md-4 stat-item">
                             <i class="bi bi-person-hearts"></i>
                             <span class="stat-number">{{ number_format($stats['cadres'], 0, ',', '.') }}</span>
-                            <p>Kader Bertugas</p>
+                            <p>Kader Aktif</p>
                         </div>
                     </div>
                 </div>
@@ -310,20 +310,18 @@
                 </div>
 
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-                    @foreach ($posyandu['galeri'] as $nomor)
+                    @foreach ($posyandu['galeri_items'] as $foto)
                         <div class="col-lg-4 col-md-6 portfolio-item">
                             <div class="portfolio-img">
-                                <img src="{{ asset("assets/img/Fotos/Foto{$nomor}.jpg") }}" class="img-fluid"
-                                    loading="lazy"
-                                    alt="Kegiatan {{ $posyandu['nama'] }}, foto {{ $loop->iteration }}">
+                                <img src="{{ $foto['url'] }}" class="img-fluid" loading="lazy"
+                                    alt="{{ $foto['title'] ?? 'Kegiatan '.$posyandu['nama'] }}, foto {{ $loop->iteration }}">
                             </div>
                             <div class="portfolio-info">
-                                <h4>Kegiatan Posyandu</h4>
+                                <h4>{{ $foto['title'] ?? 'Kegiatan Posyandu' }}</h4>
                                 <p>Dokumentasi {{ $loop->iteration }}</p>
-                                <a href="{{ asset("assets/img/Fotos/Foto{$nomor}.jpg") }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox preview-link"
-                                    title="Kegiatan Posyandu, dokumentasi {{ $loop->iteration }}"><i
-                                        class="bx bx-plus"></i></a>
+                                <a href="{{ $foto['url'] }}" data-gallery="portfolioGallery"
+                                    class="portfolio-lightbox preview-link"
+                                    title="{{ $foto['title'] ?? 'Kegiatan Posyandu' }}"><i class="bx bx-plus"></i></a>
                             </div>
                         </div>
                     @endforeach
@@ -526,7 +524,7 @@
                                     Posyandu</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#contact" class="scrollto">Lokasi dan
                                     Kontak</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/login') }}">Login Kader</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/admin/login') }}">Login Kader</a></li>
                         </ul>
                     </div>
                 </div>
