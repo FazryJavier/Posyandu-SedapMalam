@@ -13,6 +13,6 @@ class DataOrangtua extends Model
 
     public function dataanak()
     {
-        return $this->hasMany(DataAnak::class, 'IdOrangtua')->cascadeDeletes();
+        return $this->hasMany(DataAnak::class, 'IdOrangtua');
     }
 }
