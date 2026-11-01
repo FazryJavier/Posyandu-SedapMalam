@@ -1,66 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Posyandu Sedap Malam
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem informasi **Posyandu Sedap Malam** (RW 11, Kelurahan Sukaluyu, Kecamatan Cibeunying Kaler, Kota Bandung). Aplikasi ini terdiri dari dua bagian:
 
-## About Laravel
+- **Website publik** (`/`) berisi profil posyandu, alur pelayanan, jadwal imunisasi, tips kesehatan, galeri, struktur kader, FAQ, serta lokasi.
+- **Panel kader** (`/login`) untuk mengelola data orang tua, anak, dan kader, mencatat penimbangan, serta melihat grafik perkembangan anak.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![CI](https://github.com/FazryJavier/Posyandu-SedapMalam/actions/workflows/ci.yml/badge.svg)](https://github.com/FazryJavier/Posyandu-SedapMalam/actions/workflows/ci.yml)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Teknologi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Bagian | Teknologi |
+|---|---|
+| Backend | PHP 8.4, Laravel 12 |
+| Database | MySQL 8 (tes otomatis memakai SQLite in-memory) |
+| Website publik | Blade, Bootstrap 5, template Arsha (BootstrapMade) |
+| Panel kader | Blade, AdminLTE 3 |
+| Pengujian | PHPUnit 11 |
+| CI | GitHub Actions |
 
-## Learning Laravel
+## Prasyarat
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.4 dengan ekstensi `mbstring`, `pdo_mysql`, `pdo_sqlite`, `xml`, `fileinfo`, `bcmath`
+- Composer 2
+- MySQL 8 (atau MariaDB yang kompatibel)
+- Node.js 20+ hanya diperlukan bila ingin menjalankan Vite (`npm run dev`); tampilan saat ini tidak memerlukannya
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Memulai
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/FazryJavier/Posyandu-SedapMalam.git
+cd Posyandu-SedapMalam
 
-## Laravel Sponsors
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Buat database kosong, lalu sesuaikan `DB_*` pada `.env` (nilai bawaan: database `sedapmalam`, pengguna `root`, tanpa kata sandi):
 
-### Premium Partners
+```sql
+CREATE DATABASE sedapmalam CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+php artisan migrate
+php artisan serve
+```
 
-## Contributing
+Buka <http://127.0.0.1:8000>. Pengguna Laragon dapat menjalankan MySQL dari Laragon, membuat database `sedapmalam`, lalu menjalankan perintah di atas tanpa mengubah `.env`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> Jangan menjalankan `migrate:fresh`, `migrate:refresh`, atau `db:wipe` pada database yang berisi data nyata karena perintah tersebut menghapus seluruh tabel.
 
-## Code of Conduct
+### Akun kader pertama
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Akun dibuat lewat halaman pendaftaran tersembunyi `/admin-registrasi-only`, lalu masuk di `/login` menggunakan `username` dan kata sandi yang didaftarkan. Halaman pendaftaran belum dilindungi login, jadi batasi aksesnya di lingkungan produksi.
 
-## Security Vulnerabilities
+## Konfigurasi `.env`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Variabel | Bawaan | Keterangan |
+|---|---|---|
+| `APP_NAME` | `Posyandu Sedap Malam` | Nama aplikasi |
+| `APP_URL` | `http://localhost` | URL dasar aplikasi |
+| `APP_LOCALE` | `id` | Locale aplikasi; pesan bawaan Laravel masih memakai bahasa Inggris (fallback `en`) |
+| `DB_CONNECTION` | `mysql` | Driver database |
+| `DB_HOST` / `DB_PORT` | `127.0.0.1` / `3306` | Alamat server MySQL |
+| `DB_DATABASE` | `sedapmalam` | Nama database |
+| `DB_USERNAME` / `DB_PASSWORD` | `root` / kosong | Kredensial database; ganti di produksi |
+| `SESSION_DRIVER` | `file` | Penyimpanan sesi |
+| `CACHE_STORE` | `file` | Penyimpanan cache |
+| `QUEUE_CONNECTION` | `sync` | Antrean dijalankan langsung |
 
-## License
+Jangan menyimpan `.env` di Git. Gunakan `.env.example` sebagai acuan.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Struktur database
+
+Seluruh tabel dan kolom memakai bahasa Inggris. Relasi: satu `guardian` memiliki banyak `children`, dan satu `child` memiliki banyak `growth_records`.
+
+| Tabel | Kolom utama |
+|---|---|
+| `users` (akun kader untuk login) | `id`, `name`, `position`, `address`, `phone`, `username` (unik), `password` |
+| `guardians` (orang tua) | `id`, `father_name`, `mother_name`, `address`, `phone` |
+| `children` (anak) | `nik` (PK), `name`, `age`, `weight`, `height`, `head_circumference`, `arm_circumference`, `bmi`, `guardian_id` (FK ke `guardians`, cascade) |
+| `cadres` (data kader) | `id`, `name`, `position`, `address`, `phone` |
+| `growth_records` (riwayat pertumbuhan) | `id`, `child_nik` (FK ke `children.nik`, cascade), `weight`, `height`, `bmi` |
+
+Model Eloquent: `User`, `Guardian`, `Child`, `Cadre`, `GrowthRecord`.
+
+## Rute
+
+| URL | Akses | Fungsi |
+|---|---|---|
+| `/` | Publik | Website profil posyandu |
+| `/login`, `/logout` | Publik | Masuk dan keluar |
+| `/admin-registrasi-only` | Publik (tersembunyi) | Pendaftaran akun kader |
+| `/dashboard` | Login | Ringkasan jumlah orang tua, anak, dan kader |
+| `/data-orangtua`, `/data-anak`, `/data-kader` | Login | CRUD data orang tua, anak, dan kader |
+| `/timbang-anak` | Login | Halaman penimbangan (masih dalam pengembangan) |
+| `/grafik-perkembangan` | Login | Grafik perkembangan (masih dalam pengembangan) |
+
+URL tetap berbahasa Indonesia agar mudah dikenali kader; nama controller, model, dan kolom database memakai bahasa Inggris.
+
+## Mengubah isi website publik
+
+Seluruh teks halaman `/` dibaca dari [`config/posyandu.php`](config/posyandu.php): nama, tagline, alamat, jadwal, kontak, visi dan misi, layanan, jadwal imunisasi, tips, FAQ, dan organigram kader. Nilai `null` pada `telepon`, `whatsapp`, `email`, dan `jadwal` akan menyembunyikan bagian terkait atau menampilkan teks pengganti. Foto galeri berada di `public/assets/img/Fotos/`.
+
+Bagian statistik di website mengambil jumlah anak, orang tua, dan kader dari database, dan otomatis disembunyikan bila database tidak dapat dijangkau.
+
+## Menjalankan tes
+
+```bash
+php artisan test
+```
+
+Tes memakai SQLite in-memory (lihat `phpunit.xml`), sehingga tidak memerlukan MySQL dan tidak menyentuh database lokal. Cakupan: halaman publik, struktur skema bahasa Inggris, pendaftaran dan login, serta CRUD orang tua, anak, dan kader.
+
+Pemeriksaan keamanan dependensi:
+
+```bash
+composer audit
+```
+
+## Continuous Integration
+
+GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) berjalan pada setiap pull request ke `main` dan push ke `main`: instalasi dependensi, `composer audit`, lalu `php artisan test` di PHP 8.4.
+
+## Alur kontribusi
+
+1. Buat branch dari `main`, misalnya `feat/nama-fitur` atau `fix/nama-perbaikan`. Jangan commit langsung ke `main`.
+2. Gunakan pesan commit [Conventional Commits](https://www.conventionalcommits.org/) (`feat(scope): ringkasan`).
+3. Pastikan `php artisan test` lulus, lalu buka pull request ke `main` dengan deskripsi perubahan dan hasil pengujian.
+
+## Kredit
+
+- Template website publik: [Arsha](https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/) oleh BootstrapMade.
+- Panel kader: [AdminLTE](https://adminlte.io/).
