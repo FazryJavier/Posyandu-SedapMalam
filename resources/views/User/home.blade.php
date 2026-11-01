@@ -1,856 +1,560 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Posyandu Sedap Malam</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-    <link href="assets\logo-posyandu.png" rel="icon">
+    <title>{{ $posyandu['nama'] }} - Kesehatan Ibu dan Anak, Sukaluyu Bandung</title>
+    <meta content="{{ $posyandu['nama'] }}, RW 11 Kelurahan Sukaluyu, Kota Bandung. Penimbangan balita, imunisasi, kesehatan ibu dan anak, penyuluhan gizi, dan keluarga berencana."
+        name="description">
+    <meta content="posyandu, sedap malam, sukaluyu, bandung, kesehatan ibu dan anak, imunisasi, penimbangan balita, stunting"
+        name="keywords">
+    <meta property="og:title" content="{{ $posyandu['nama'] }}">
+    <meta property="og:description" content="{{ $posyandu['tagline'] }}">
+    <meta property="og:image" content="{{ asset('assets/logo-posyandu.png') }}">
+    <link href="{{ asset('assets/logo-posyandu.png') }}" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
         rel="stylesheet">
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <header id="header" class="fixed-top ">
+    <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
-            <h1 class="logo me-auto"><a href="#"><img src="assets\logo-posyandu.png" alt=""></a></h1>
+            <h1 class="logo me-auto">
+                <a href="#hero"><img src="{{ asset('assets/logo-posyandu.png') }}"
+                        alt="Logo {{ $posyandu['nama'] }}"></a>
+            </h1>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#about">Tentang Kami</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Program Kerja</a></li>
+                    <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
+                    <li><a class="nav-link scrollto" href="#about">Tentang</a></li>
+                    <li><a class="nav-link scrollto" href="#layanan">Layanan</a></li>
+                    <li><a class="nav-link scrollto" href="#imunisasi">Imunisasi</a></li>
+                    <li><a class="nav-link scrollto" href="#portfolio">Galeri</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Kader</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Lokasi</a></li>
-                    <li><a href="/login">Login</a></li>
+                    <li><a class="getstarted" href="{{ url('/login') }}">Login</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
         </div>
     </header>
 
+    {{-- Hero --}}
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
                     data-aos="fade-up" data-aos-delay="200">
-                    <h1>Posyandu Sedap Malam</h1>
-                    {{-- <h2>We are team of talented designers making websites with Bootstrap</h2> --}}
+                    <h1>{{ $posyandu['nama'] }}</h1>
+                    <h2>{{ $posyandu['tagline'] }}</h2>
+                    <div class="d-flex justify-content-center justify-content-lg-start flex-wrap">
+                        <a href="#layanan" class="btn-get-started scrollto">Lihat Layanan</a>
+                        <a href="#contact" class="btn-hero-secondary scrollto">Lokasi Kami</a>
+                    </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="assets\logo-posyandu.png" class="img-fluid animated" alt="">
+                    <img src="{{ asset('assets/logo-posyandu.png') }}" class="img-fluid animated"
+                        alt="Logo {{ $posyandu['nama'] }}">
                 </div>
             </div>
         </div>
-
     </section>
 
     <main id="main">
+        {{-- Info singkat --}}
+        <section id="info" class="info-strip">
+            <div class="container">
+                <div class="row g-0 info-strip-box" data-aos="fade-up">
+                    <div class="col-md-4 info-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <h4>Lokasi</h4>
+                            <p>RW 11, Kelurahan Sukaluyu, Kota Bandung</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <div>
+                            <h4>Jadwal</h4>
+                            <p>{{ $posyandu['jadwal'] ?? 'Sekali setiap bulan' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <i class="bi bi-people"></i>
+                        <div>
+                            <h4>Sasaran</h4>
+                            <p>Bayi, balita, ibu hamil, dan ibu menyusui</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Tentang kami, visi, dan misi --}}
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>About Us</h2>
+                    <h2>Tentang Kami</h2>
+                    <p>Mengenal {{ $posyandu['nama'] }} dan kegiatan yang kami jalankan bersama warga.</p>
                 </div>
 
                 <div class="row content">
                     <div class="col-lg-6">
-                        <p>
-                            {{-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore
-                            magna aliqua. --}}
-                        </p>
-                        {{-- <ul>
-                            <li><i class="ri-check-double-line"></i>-</li>
-                            <li><i class="ri-check-double-line"></i>-</li>
-                            <li><i class="ri-check-double-line"></i> -</li>
-                        </ul> --}}
+                        @foreach ($posyandu['tentang'] as $paragraf)
+                            <p>{{ $paragraf }}</p>
+                        @endforeach
+                        <p class="mb-2"><strong>Sasaran layanan:</strong></p>
+                        <ul>
+                            @foreach ($posyandu['sasaran'] as $sasaran)
+                                <li><i class="ri-check-double-line"></i> {{ $sasaran }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0">
-                        {{-- <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate
-                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum.
-                        </p> --}}
-                        {{-- <a href="#" class="btn-learn-more">Learn More</a> --}}
+                        <div class="visi-misi">
+                            <h3><i class="bi bi-bullseye"></i> Visi</h3>
+                            <p>{{ $posyandu['visi'] }}</p>
+                            <h3><i class="bi bi-list-check"></i> Misi</h3>
+                            <ol>
+                                @foreach ($posyandu['misi'] as $misi)
+                                    <li>{{ $misi }}</li>
+                                @endforeach
+                            </ol>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section id="why-us" class="why-us section-bg">
-            <div class="container-fluid" data-aos="fade-up">
-
-                {{-- <div class="row">
-
-                    <div
-                        class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
-
-                        <div class="content">
-                            <h3>Eum ipsam laborum deleniti <strong>velit pariatur architecto aut nihil</strong></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                            </p>
-                        </div>
-
-                        <div class="accordion-list">
-                            <ul>
-                                <li>
-                                    <a data-bs-toggle="collapse" class="collapse"
-                                        data-bs-target="#accordion-list-1"><span>01</span> Non consectetur a erat nam
-                                        at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i
-                                            class="bx bx-chevron-up icon-close"></i></a>
-                                    <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
-                                        <p>
-                                            Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus
-                                            laoreet non curabitur gravida. Venenatis lectus magna fringilla urna
-                                            porttitor rhoncus dolor purus non.
-                                        </p>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2"
-                                        class="collapsed"><span>02</span> Feugiat scelerisque varius morbi enim nunc?
-                                        <i class="bx bx-chevron-down icon-show"></i><i
-                                            class="bx bx-chevron-up icon-close"></i></a>
-                                    <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
-                                        <p>
-                                            Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id
-                                            interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus
-                                            scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper
-                                            dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                                        </p>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3"
-                                        class="collapsed"><span>03</span> Dolor sit amet consectetur adipiscing elit?
-                                        <i class="bx bx-chevron-down icon-show"></i><i
-                                            class="bx bx-chevron-up icon-close"></i></a>
-                                    <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
-                                        <p>
-                                            Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci.
-                                            Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet
-                                            nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis
-                                            convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio
-                                            morbi quis
-                                        </p>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
-                        style='background-image: url("assets/img/why-us.png");' data-aos="zoom-in"
-                        data-aos-delay="150">&nbsp;</div>
-                </div> --}}
-
-            </div>
-        </section>
-
-        <section id="skills" class="skills">
+        {{-- Alur pelayanan (Sistem 5 Meja) --}}
+        <section id="layanan" class="alur section-bg">
             <div class="container" data-aos="fade-up">
 
-                <div class="row">
-                    <div class="col-lg-6 d-flex align-items-center" data-aos="fade-right" data-aos-delay="100">
-                        <img src="assets/img/skills.png" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
-                        <h3>Voluptatem dignissimos provident quasi corporis voluptates</h3>
-                        <p class="fst-italic">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore
-                            magna aliqua.
-                        </p>
+                <div class="section-title">
+                    <h2>Alur Pelayanan</h2>
+                    <p>Setiap kunjungan ke Posyandu melewati lima meja pelayanan agar tumbuh kembang anak terpantau
+                        dengan baik.</p>
+                </div>
 
-                        <div class="skills-content">
-
-                            <div class="progress">
-                                <span class="skill">HTML <i class="val">100%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
+                <div class="row justify-content-center">
+                    @foreach ($posyandu['meja'] as $meja)
+                        <div class="col-xl col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in"
+                            data-aos-delay="{{ ($loop->index % 3 + 1) * 100 }}">
+                            <div class="meja-box">
+                                <span class="meja-no">{{ $loop->iteration }}</span>
+                                <div class="meja-icon"><i class="{{ $meja['icon'] }}"></i></div>
+                                <h4>Meja {{ $loop->iteration }}</h4>
+                                <h5>{{ $meja['judul'] }}</h5>
+                                <p>{{ $meja['teks'] }}</p>
                             </div>
-
-                            <div class="progress">
-                                <span class="skill">CSS <i class="val">90%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="90"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="progress">
-                                <span class="skill">JavaScript <i class="val">75%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="75"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="progress">
-                                <span class="skill">Photoshop <i class="val">55%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="55"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
                         </div>
-
-                    </div>
+                    @endforeach
                 </div>
 
             </div>
         </section>
 
-        <section id="services" class="services section-bg">
+        {{-- Program kerja --}}
+        <section id="services" class="services">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
                     <h2>Program Kerja</h2>
-                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
-                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
-                        ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                    <p>Kegiatan rutin yang dijalankan para kader untuk menjaga kesehatan ibu, bayi, dan balita di
+                        lingkungan kami.</p>
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in"
-                        data-aos-delay="100">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                            <h4><a href="">Lorem Ipsum</a></h4>
-                            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                    @foreach ($posyandu['program'] as $program)
+                        <div class="col-xl-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in"
+                            data-aos-delay="{{ ($loop->index % 3 + 1) * 100 }}">
+                            <div class="icon-box">
+                                <div class="icon"><i class="{{ $program['icon'] }}"></i></div>
+                                <h4>{{ $program['judul'] }}</h4>
+                                <p>{{ $program['teks'] }}</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-                        data-aos-delay="200">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bx-file"></i></div>
-                            <h4><a href="">Sed ut perspici</a></h4>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in"
-                        data-aos-delay="300">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bx-tachometer"></i></div>
-                            <h4><a href="">Magni Dolores</a></h4>
-                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in"
-                        data-aos-delay="400">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bx-layer"></i></div>
-                            <h4><a href="">Nemo Enim</a></h4>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
 
             </div>
         </section>
 
+        {{-- Statistik (disembunyikan bila database tidak tersedia) --}}
+        @if ($stats)
+            <section id="stats" class="stats">
+                <div class="container" data-aos="fade-up">
+                    <div class="row text-center">
+                        <div class="col-md-4 stat-item">
+                            <i class="bi bi-emoji-smile"></i>
+                            <span class="stat-number">{{ number_format($stats['anak'], 0, ',', '.') }}</span>
+                            <p>Anak Terdata</p>
+                        </div>
+                        <div class="col-md-4 stat-item">
+                            <i class="bi bi-house-heart"></i>
+                            <span class="stat-number">{{ number_format($stats['keluarga'], 0, ',', '.') }}</span>
+                            <p>Keluarga Terdaftar</p>
+                        </div>
+                        <div class="col-md-4 stat-item">
+                            <i class="bi bi-person-hearts"></i>
+                            <span class="stat-number">{{ number_format($stats['kader'], 0, ',', '.') }}</span>
+                            <p>Kader Bertugas</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        {{-- Jadwal imunisasi --}}
+        <section id="imunisasi" class="imunisasi section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Jadwal Imunisasi</h2>
+                    <p>Imunisasi melindungi anak dari penyakit berbahaya. Berikut jadwal imunisasi dasar dan lanjutan
+                        pada bayi dan balita.</p>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="table-responsive imunisasi-table">
+                            <table class="table align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Usia</th>
+                                        <th scope="col">Imunisasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($posyandu['imunisasi'] as $baris)
+                                        <tr>
+                                            <th scope="row">{{ $baris['usia'] }}</th>
+                                            <td>{{ $baris['vaksin'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="imunisasi-note"><i class="bi bi-info-circle"></i> {{ $posyandu['imunisasi_catatan'] }}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        {{-- Edukasi kesehatan --}}
+        <section id="edukasi" class="edukasi services">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Tips Kesehatan Ibu dan Anak</h2>
+                    <p>Informasi singkat untuk mendukung tumbuh kembang anak dan kesehatan keluarga.</p>
+                </div>
+
+                <div class="row">
+                    @foreach ($posyandu['edukasi'] as $tips)
+                        <div class="col-xl-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="fade-up"
+                            data-aos-delay="{{ ($loop->index % 3 + 1) * 100 }}">
+                            <div class="tips-box">
+                                <div class="tips-icon"><i class="{{ $tips['icon'] }}"></i></div>
+                                <div>
+                                    <h4>{{ $tips['judul'] }}</h4>
+                                    <p>{{ $tips['teks'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section>
+
+        {{-- CTA --}}
         <section id="cta" class="cta">
             <div class="container" data-aos="zoom-in">
                 <div class="row">
                     <div class="col-lg-9 text-center text-lg-start">
-                        <h3>Cari Perkembangan Anak Anda!</h3>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.</p>
+                        <h3>Pantau Perkembangan Anak Anda</h3>
+                        <p>Datanglah ke Posyandu secara rutin agar berat badan, tinggi badan, dan status gizi anak
+                            terpantau dengan baik. Kader kami siap membantu dan menjawab pertanyaan Anda.</p>
                     </div>
                     <div class="col-lg-3 cta-btn-container text-center">
-                        <a class="cta-btn align-middle" href="#">Klik untuk Mencari</a>
+                        <a class="cta-btn align-middle scrollto" href="#contact">Lihat Lokasi</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        {{-- Galeri --}}
         <section id="portfolio" class="portfolio">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
                     <h2>Foto Kegiatan</h2>
-                    {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
-                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
-                        ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
+                    <p>Dokumentasi kegiatan {{ $posyandu['nama'] }}.</p>
                 </div>
 
-                <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up"
-                    data-aos-delay="100">
-                    <li data-filter="*" class="filter-active">Kegiatan Imunisasi</li>
-                    <li data-filter=".filter-app">Penyuluhan</li>
-                    <li data-filter=".filter-card">Kesehatan Ibu dan Anak</li>
-                    {{-- <li data-filter=".filter-web">Web</li> --}}
-                </ul>
-
-                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto1.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>App 1</h4>
-                            <p>App</p>
-                            <a href="assets/img/Foto/Foto1.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+                    @foreach ($posyandu['galeri'] as $nomor)
+                        <div class="col-lg-4 col-md-6 portfolio-item">
+                            <div class="portfolio-img">
+                                <img src="{{ asset("assets/img/Fotos/Foto{$nomor}.jpg") }}" class="img-fluid"
+                                    loading="lazy"
+                                    alt="Kegiatan {{ $posyandu['nama'] }}, foto {{ $loop->iteration }}">
+                            </div>
+                            <div class="portfolio-info">
+                                <h4>Kegiatan Posyandu</h4>
+                                <p>Dokumentasi {{ $loop->iteration }}</p>
+                                <a href="{{ asset("assets/img/Fotos/Foto{$nomor}.jpg") }}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox preview-link"
+                                    title="Kegiatan Posyandu, dokumentasi {{ $loop->iteration }}"><i
+                                        class="bx bx-plus"></i></a>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto2.jpg class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto3.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>App 2</h4>
-                            <p>App</p>
-                            <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto4.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Card 2</h4>
-                            <p>Card</p>
-                            <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto5.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Web 2</h4>
-                            <p>Web</p>
-                            <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto6.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>App 3</h4>
-                            <p>App</p>
-                            <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto7.jpg.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Card 1</h4>
-                            <p>Card</p>
-                            <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-img"><img src="assets/img/Fotos/Foto8.jpg class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Card 3</h4>
-                            <p>Card</p>
-                            <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    {{-- <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid"
-                                alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
-                        </div>
-                    </div> --}}
-
+                    @endforeach
                 </div>
 
             </div>
         </section>
 
+        {{-- Struktur kader (organigram) --}}
         <section id="team" class="team section-bg">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Kader Posyandu</h2>
-                    {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
-                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
-                        ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
+                    <h2>Struktur Kader Posyandu</h2>
+                    <p>Susunan pengurus dan kader yang melayani warga dengan sukarela.</p>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Wini Sukarwinah</h4>
-                                <span>Ketua Posyandu Sedap Malam</span>
-                                <p>-</p>
-                                {{-- <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div> --}}
-                            </div>
-                        </div>
+                @php($org = $posyandu['organigram'])
+                <div class="org-chart">
+                    <div class="org-node org-ketua">
+                        <div class="org-icon"><i class="bi bi-person-fill"></i></div>
+                        <h4>{{ $org['ketua']['jabatan'] }}</h4>
+                        @if ($org['ketua']['nama'])
+                            <span>{{ $org['ketua']['nama'] }}</span>
+                        @endif
                     </div>
 
-                    <div class="col-lg-6 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Sarah Jhonson</h4>
-                                <span>Wakil Ketua</span>
-                                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="org-connector" aria-hidden="true"></div>
+
+                    <div class="org-group">
+                        <h5 class="org-label">Pengurus</h5>
+                        <ul class="org-row org-row-3">
+                            @foreach ($org['pengurus'] as $anggota)
+                                <li class="org-item">
+                                    <div class="org-node">
+                                        <div class="org-icon"><i class="{{ $anggota['icon'] }}"></i></div>
+                                        <div class="org-text">
+                                            <h4>{{ $anggota['jabatan'] }}</h4>
+                                            @if ($anggota['nama'])
+                                                <span>{{ $anggota['nama'] }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
 
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>William Anderson</h4>
-                                <span>Sekretaris</span>
-                                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="org-connector" aria-hidden="true"></div>
 
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Bendahara</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Kader Kesehatan Ibu Dan Anak</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Kader Keluarga Berencana</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Kader Imunisasi</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>KAder Gizi</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid"
-                                    alt=""></div>
-                            <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Kader Pencegahan Penyakit</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                                <div class="social">
-                                    <a href=""><i class="ri-twitter-fill"></i></a>
-                                    <a href=""><i class="ri-facebook-fill"></i></a>
-                                    <a href=""><i class="ri-instagram-fill"></i></a>
-                                    <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="org-group">
+                        <h5 class="org-label">Kader Seksi</h5>
+                        <ul class="org-row">
+                            @foreach ($org['seksi'] as $anggota)
+                                <li class="org-item">
+                                    <div class="org-node">
+                                        <div class="org-icon"><i class="{{ $anggota['icon'] }}"></i></div>
+                                        <div class="org-text">
+                                            <h4>{{ $anggota['jabatan'] }}</h4>
+                                            @if ($anggota['nama'])
+                                                <span>{{ $anggota['nama'] }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        {{-- <section id="faq" class="faq section-bg">
+        {{-- FAQ --}}
+        <section id="faq" class="faq">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Frequently Asked Questions</h2>
-                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
-                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
-                        ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                    <h2>Pertanyaan yang Sering Diajukan</h2>
+                    <p>Jawaban singkat untuk pertanyaan yang paling sering ditanyakan warga.</p>
                 </div>
 
                 <div class="faq-list">
                     <ul>
-                        <li data-aos="fade-up" data-aos-delay="100">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse"
-                                data-bs-target="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i
-                                    class="bx bx-chevron-down icon-show"></i><i
-                                    class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                                <p>
-                                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet
-                                    non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor
-                                    purus non.
-                                </p>
-                            </div>
-                        </li>
-
-                        <li data-aos="fade-up" data-aos-delay="200">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse"
-                                data-bs-target="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim
-                                nunc? <i class="bx bx-chevron-down icon-show"></i><i
-                                    class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum
-                                    velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend
-                                    donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in
-                                    cursus turpis massa tincidunt dui.
-                                </p>
-                            </div>
-                        </li>
-
-                        <li data-aos="fade-up" data-aos-delay="300">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse"
-                                data-bs-target="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing
-                                elit? <i class="bx bx-chevron-down icon-show"></i><i
-                                    class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus
-                                    pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit.
-                                    Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis
-                                    tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                                </p>
-                            </div>
-                        </li>
-
-                        <li data-aos="fade-up" data-aos-delay="400">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse"
-                                data-bs-target="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam
-                                aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i
-                                    class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in
-                                    est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl
-                                    suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
-                                </p>
-                            </div>
-                        </li>
-
-                        <li data-aos="fade-up" data-aos-delay="500">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse"
-                                data-bs-target="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare.
-                                Varius vel pharetra vel turpis nunc eget lorem dolor? <i
-                                    class="bx bx-chevron-down icon-show"></i><i
-                                    class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo
-                                    integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc
-                                    eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
-                                </p>
-                            </div>
-                        </li>
-
+                        @foreach ($posyandu['faq'] as $faq)
+                            <li data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 50 }}">
+                                <i class="bx bx-help-circle icon-help"></i>
+                                <a data-bs-toggle="collapse" data-bs-target="#faq-list-{{ $loop->iteration }}"
+                                    class="{{ $loop->first ? '' : 'collapsed' }}" role="button"
+                                    aria-expanded="{{ $loop->first ? 'true' : 'false' }}">
+                                    {{ $faq['tanya'] }}
+                                    <i class="bx bx-chevron-down icon-show"></i><i
+                                        class="bx bx-chevron-up icon-close"></i>
+                                </a>
+                                <div id="faq-list-{{ $loop->iteration }}"
+                                    class="collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent=".faq-list">
+                                    <p>{{ $faq['jawab'] }}</p>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 
             </div>
-        </section> --}}
+        </section>
 
-        <section id="contact" class="contact">
+        {{-- Lokasi dan kontak --}}
+        <section id="contact" class="contact section-bg">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Contact</h2>
-                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
-                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
-                        ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                    <h2>Lokasi dan Kontak</h2>
+                    <p>Kunjungi {{ $posyandu['nama'] }} di RW 11 Kelurahan Sukaluyu.</p>
                 </div>
 
                 <div class="row">
-
-                    <div class="col-lg-20 d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-start">
                         <div class="info">
                             <div class="address">
                                 <i class="bi bi-geo-alt"></i>
-                                <h4>Lokasi</h4>
-                                <p>Jl.Rereng Wulung No.11, Sukaluyu, Kec.Cibeunying Kaler, Kota Bandung</p>
+                                <h4>Alamat</h4>
+                                <p>{{ $posyandu['alamat'] }}</p>
                             </div>
 
-                            <div class="email">
-                                <i class="bi bi-envelope"></i>
-                                <h4>Email:</h4>
-                                <p>info@example.com</p>
+                            <div class="schedule">
+                                <i class="bi bi-calendar-check"></i>
+                                <h4>Jadwal</h4>
+                                <p>{{ $posyandu['jadwal'] ?? $posyandu['jadwal_pengganti'] }}</p>
                             </div>
 
-                            <div class="phone">
-                                <i class="bi bi-phone"></i>
-                                <h4>Telepon</h4>
-                                <p>+1 5589 55488 55s</p>
-                            </div>
+                            @if ($posyandu['telepon'] || $posyandu['whatsapp'])
+                                <div class="phone">
+                                    <i class="bi bi-telephone"></i>
+                                    <h4>Telepon</h4>
+                                    <p>{{ $posyandu['telepon'] ?? $posyandu['whatsapp'] }}</p>
+                                </div>
+                            @endif
 
-                            <iframe <iframe <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.951065668113!2d107.62802407573913!3d-6.896456667490032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7afd59fefad%3A0x18776b22dfc7f31b!2sPosyandu%20Sedap%20Malam!5e0!3m2!1sen!2sid!4v1704899220422!5m2!1sen!2sid"
-                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe></iframe>
-                            {{-- src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
-                                frameborder="0" style="border:0; width: 100%; height: 290px;"
-                                allowfullscreen> --}}
-                            {{-- </iframe> --}}
+                            @if ($posyandu['email'])
+                                <div class="email">
+                                    <i class="bi bi-envelope"></i>
+                                    <h4>Email</h4>
+                                    <p>{{ $posyandu['email'] }}</p>
+                                </div>
+                            @endif
+
+                            <a class="btn-directions"
+                                href="https://www.google.com/maps/search/?api=1&query={{ urlencode($posyandu['peta_query']) }}"
+                                target="_blank" rel="noopener">
+                                <i class="bi bi-sign-turn-right"></i> Petunjuk Arah
+                            </a>
                         </div>
-
                     </div>
 
-                    {{-- <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="name">Your Name</label>
-                                    <input type="text" name="name" class="form-control" id="name"
-                                        required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="name">Your Email</label>
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Subject</label>
-                                <input type="text" class="form-control" name="subject" id="subject" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Message</label>
-                                <textarea class="form-control" name="message" rows="10" required></textarea>
-                            </div>
-                            <div class="my-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
-                            </div>
-                            <div class="text-center"><button type="submit">Send Message</button></div>
-                        </form>
-                    </div> --}}
+                    <div class="col-lg-8 mt-4 mt-lg-0">
+                        <div class="map-wrap">
+                            <iframe title="Peta lokasi {{ $posyandu['nama'] }}"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.951065668113!2d107.62802407573913!3d-6.896456667490032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7afd59fefad%3A0x18776b22dfc7f31b!2sPosyandu%20Sedap%20Malam!5e0!3m2!1sid!2sid!4v1704899220422!5m2!1sid!2sid"
+                                width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer id="footer">
-        {{-- <div class="footer-top">
+        <div class="footer-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 footer-contact">
-                        <h3>Posyandu Sedap Malam</h3>
-                        <p>
-                            Jl. Rereng Wulung No 11, Rw 11<br>
-                            Kelurahan Sukaluyu<br>
-                            Kota Bandung <br><br>
-                            <strong>Phone:</strong>-<br>
-                            <strong>Email:</strong>-<br>
-                        </p>
+                    <div class="col-lg-5 col-md-6 footer-contact">
+                        <h3>{{ $posyandu['nama'] }}</h3>
+                        <p>{{ $posyandu['alamat'] }}</p>
+                        @if ($posyandu['telepon'])
+                            <p><strong>Telepon:</strong> {{ $posyandu['telepon'] }}</p>
+                        @endif
+                        @if ($posyandu['email'])
+                            <p><strong>Email:</strong> {{ $posyandu['email'] }}</p>
+                        @endif
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Useful Links</h4>
+                        <h4>Menu</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li> --}}
-        {{-- <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li> --}}
-        {{-- </ul>
-                    </div> --}}
-        {{-- 
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Services</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#about" class="scrollto">Tentang</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#layanan" class="scrollto">Layanan</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#imunisasi" class="scrollto">Jadwal
+                                    Imunisasi</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#faq" class="scrollto">FAQ</a></li>
                         </ul>
-                    </div> --}}
-
-        {{-- <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Social Networks</h4>
-                        <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-                        <div class="social-links mt-3">
-                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                        </div>
                     </div>
 
+                    <div class="col-lg-4 col-md-6 footer-links">
+                        <h4>Informasi</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#portfolio" class="scrollto">Foto
+                                    Kegiatan</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#team" class="scrollto">Kader
+                                    Posyandu</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#contact" class="scrollto">Lokasi dan
+                                    Kontak</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/login') }}">Login Kader</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         <div class="container footer-bottom clearfix">
             <div class="copyright">
-                &copy; Copyright <strong><span>Arsha</span></strong>. All Rights Reserved
+                &copy; {{ date('Y') }} <strong><span>{{ $posyandu['nama'] }}</span></strong>. Hak cipta dilindungi.
             </div>
             <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                Template <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">Arsha oleh
+                    BootstrapMade</a>
             </div>
         </div>
     </footer>
 
     <div id="preloader"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center" aria-label="Kembali ke atas"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 </html>

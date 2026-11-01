@@ -1823,3 +1823,671 @@ section {
     padding-top: 4px;
   }
 }
+/*--------------------------------------------------------------
+# Penyesuaian Posyandu Sedap Malam
+--------------------------------------------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+#hero .btn-hero-secondary {
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 9px 28px 10px 28px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px 0 0 15px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+#hero .btn-hero-secondary:hover {
+  background: #fff;
+  color: #37517e;
+}
+
+#hero h2 {
+  margin-bottom: 30px;
+  line-height: 1.4;
+}
+
+#hero .hero-img img {
+  max-height: 60vh;
+  object-fit: contain;
+}
+
+.about .content ul {
+  padding-left: 0;
+}
+
+.about .content p {
+  line-height: 1.7;
+}
+
+.services .icon-box {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.portfolio .portfolio-item .portfolio-img {
+  aspect-ratio: 4 / 3;
+}
+
+.portfolio .portfolio-item .portfolio-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio .portfolio-item {
+  position: relative;
+}
+
+.portfolio .portfolio-item .portfolio-info {
+  bottom: 15px;
+}
+
+.portfolio .portfolio-item .portfolio-info .preview-link {
+  right: 15px;
+}
+
+.contact .info {
+  width: 100%;
+}
+
+.contact .info .btn-directions {
+  display: inline-block;
+  margin-left: 60px;
+  padding: 8px 22px;
+  border-radius: 50px;
+  background: #47b2e4;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.contact .info .btn-directions:hover {
+  background: #209dd8;
+  color: #fff;
+}
+
+.contact .info .btn-directions i {
+  float: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  background: none;
+  color: inherit;
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+.contact .map-wrap {
+  width: 100%;
+  height: 380px;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.1);
+}
+
+.contact .map-wrap iframe {
+  display: block;
+}
+
+@media (max-width: 575px) {
+  #hero .btn-hero-secondary {
+    margin-left: 10px;
+  }
+}
+
+#header.header-scrolled,
+#header.header-inner-pages {
+  background: rgba(55, 81, 126, 0.96);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 575px) {
+  .services .icon-box {
+    padding: 30px 24px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Info singkat
+--------------------------------------------------------------*/
+.info-strip {
+  position: relative;
+  z-index: 5;
+  margin-top: -60px;
+  padding: 0 0 20px;
+}
+
+.info-strip .info-strip-box {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(55, 81, 126, 0.18);
+  overflow: hidden;
+}
+
+.info-strip .info-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 26px 28px;
+}
+
+.info-strip .info-item + .info-item {
+  border-left: 1px solid #e7edf5;
+}
+
+.info-strip .info-item i {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  border-radius: 50%;
+  background: #e7f5fb;
+  color: #47b2e4;
+}
+
+.info-strip .info-item h4 {
+  margin: 0 0 2px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #37517e;
+}
+
+.info-strip .info-item p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .info-strip {
+    margin-top: -40px;
+  }
+
+  .info-strip .info-item + .info-item {
+    border-left: 0;
+    border-top: 1px solid #e7edf5;
+  }
+}
+
+/*--------------------------------------------------------------
+# Visi dan Misi
+--------------------------------------------------------------*/
+.about .visi-misi {
+  background: #f3f8fc;
+  border-left: 4px solid #47b2e4;
+  border-radius: 5px;
+  padding: 28px 30px;
+}
+
+.about .visi-misi h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #37517e;
+  margin-bottom: 10px;
+}
+
+.about .visi-misi h3 i {
+  color: #47b2e4;
+  margin-right: 6px;
+}
+
+.about .visi-misi ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.about .visi-misi ol li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.about .visi-misi p {
+  margin-bottom: 20px;
+}
+
+/*--------------------------------------------------------------
+# Alur Pelayanan (5 Meja)
+--------------------------------------------------------------*/
+.alur .meja-box {
+  position: relative;
+  width: 100%;
+  padding: 36px 22px 28px;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease-in-out;
+}
+
+.alur .meja-box:hover {
+  transform: translateY(-8px);
+}
+
+.alur .meja-no {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  border-radius: 50%;
+  background: #37517e;
+  color: #fff;
+  font-weight: 700;
+  font-family: "Jost", sans-serif;
+}
+
+.alur .meja-icon i {
+  font-size: 40px;
+  color: #47b2e4;
+}
+
+.alur .meja-box h4 {
+  margin: 8px 0 2px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6182ba;
+}
+
+.alur .meja-box h5 {
+  font-size: 19px;
+  font-weight: 600;
+  color: #37517e;
+  margin-bottom: 10px;
+}
+
+.alur .meja-box p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/*--------------------------------------------------------------
+# Statistik
+--------------------------------------------------------------*/
+.stats {
+  padding: 50px 0;
+  background: linear-gradient(135deg, #37517e, #47b2e4);
+  color: #fff;
+}
+
+.stats .stat-item i {
+  font-size: 34px;
+  opacity: 0.85;
+}
+
+.stats .stat-number {
+  display: block;
+  margin-top: 6px;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-family: "Jost", sans-serif;
+}
+
+.stats .stat-item p {
+  margin: 4px 0 0;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 767px) {
+  .stats .stat-item + .stat-item {
+    margin-top: 28px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Jadwal Imunisasi
+--------------------------------------------------------------*/
+.imunisasi .imunisasi-table {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.imunisasi .imunisasi-table table {
+  margin: 0;
+}
+
+.imunisasi .imunisasi-table thead th {
+  background: #37517e;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  padding: 14px 24px;
+  border: 0;
+}
+
+.imunisasi .imunisasi-table tbody th {
+  width: 32%;
+  color: #37517e;
+  font-weight: 600;
+  padding: 14px 24px;
+}
+
+.imunisasi .imunisasi-table tbody td {
+  padding: 14px 24px;
+}
+
+.imunisasi .imunisasi-table tbody tr:nth-child(even) > * {
+  background: #f7fafd;
+}
+
+.imunisasi .imunisasi-note {
+  margin: 16px 4px 0;
+  font-size: 14px;
+  color: #6182ba;
+}
+
+.imunisasi .imunisasi-note i {
+  margin-right: 4px;
+}
+
+/*--------------------------------------------------------------
+# Tips Kesehatan
+--------------------------------------------------------------*/
+.edukasi .tips-box {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  padding: 28px 26px;
+  background: #fff;
+  border-radius: 5px;
+  border-top: 3px solid #47b2e4;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease-in-out;
+}
+
+.edukasi .tips-box:hover {
+  transform: translateY(-8px);
+}
+
+.edukasi .tips-icon {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e7f5fb;
+}
+
+.edukasi .tips-icon i {
+  font-size: 26px;
+  color: #47b2e4;
+}
+
+.edukasi .tips-box h4 {
+  font-size: 19px;
+  font-weight: 600;
+  color: #37517e;
+  margin-bottom: 8px;
+}
+
+.edukasi .tips-box p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/*--------------------------------------------------------------
+# FAQ dan Kontak
+--------------------------------------------------------------*/
+.faq {
+  background: #fff;
+}
+
+.faq .faq-list li {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+}
+
+.faq .faq-list a {
+  padding-right: 34px;
+}
+
+@media (max-width: 991px) {
+  .faq .faq-list {
+    padding: 0;
+  }
+}
+
+.contact .info .schedule p {
+  padding-top: 5px;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer .footer-top .footer-contact p {
+  margin-bottom: 8px;
+}
+
+#footer .footer-top .footer-links ul a.scrollto {
+  cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Organigram Kader
+--------------------------------------------------------------*/
+.team .org-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team .org-node {
+  width: 100%;
+  padding: 18px 16px;
+  text-align: center;
+  background: #fff;
+  border-top: 3px solid #47b2e4;
+  border-radius: 6px;
+  box-shadow: 0 0 22px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s;
+}
+
+.team .org-node:hover {
+  transform: translateY(-4px);
+}
+
+.team .org-node h4 {
+  margin: 8px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #37517e;
+}
+
+.team .org-node span {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6182ba;
+}
+
+.team .org-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  font-size: 22px;
+  color: #47b2e4;
+  background: #e7f5fb;
+  border-radius: 50%;
+}
+
+.team .org-ketua {
+  max-width: 300px;
+  background: #37517e;
+  border-top-color: #47b2e4;
+}
+
+.team .org-ketua .org-icon {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.team .org-ketua h4 {
+  color: #fff;
+  font-size: 18px;
+}
+
+.team .org-ketua span {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.team .org-connector {
+  width: 2px;
+  height: 28px;
+  background: #b9c9e0;
+}
+
+.team .org-group {
+  width: 100%;
+  text-align: center;
+}
+
+.team .org-label {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 4px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #37517e;
+  background: #e7f5fb;
+  border-radius: 50px;
+}
+
+.team .org-label::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 16px;
+  margin-left: -1px;
+  background: #b9c9e0;
+}
+
+/* Tampilan bertingkat (ponsel dan tablet) */
+.team .org-row {
+  list-style: none;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 0 0 0 28px;
+  text-align: left;
+  border-left: 2px solid #b9c9e0;
+}
+
+.team .org-item {
+  position: relative;
+  padding: 8px 0;
+}
+
+.team .org-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -28px;
+  width: 28px;
+  border-top: 2px solid #b9c9e0;
+}
+
+.team .org-item .org-node {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.team .org-item .org-node h4 {
+  margin: 0;
+}
+
+.team .org-item .org-text {
+  flex: 1;
+}
+
+.team .org-item .org-node span {
+  margin-top: 2px;
+}
+
+/* Tampilan pohon (desktop) */
+@media (min-width: 992px) {
+  .team .org-row {
+    display: flex;
+    justify-content: center;
+    max-width: none;
+    padding: 0;
+    border-left: 0;
+  }
+
+  .team .org-item {
+    flex: 1 1 0;
+    max-width: 220px;
+    padding: 26px 8px 0;
+  }
+
+  .team .org-row.org-row-3 .org-item {
+    max-width: 260px;
+  }
+
+  .team .org-item::before,
+  .team .org-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 26px;
+    border-top: 2px solid #b9c9e0;
+  }
+
+  .team .org-item::before {
+    left: 0;
+    right: auto;
+  }
+
+  .team .org-item::after {
+    left: 50%;
+    border-left: 2px solid #b9c9e0;
+  }
+
+  .team .org-item:first-child::before {
+    border-top: 0;
+  }
+
+  .team .org-item:last-child::after {
+    border-top: 0;
+  }
+
+  .team .org-item .org-node {
+    display: block;
+    height: 100%;
+    text-align: center;
+  }
+
+  .team .org-item .org-node h4 {
+    margin-top: 8px;
+  }
+}
