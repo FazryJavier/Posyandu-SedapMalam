@@ -2,9 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Models\DataAnak;
-use App\Models\DataKader;
-use App\Models\DataOrangtua;
+use App\Models\Cadre;
+use App\Models\Faq;
+use App\Models\GalleryItem;
+use App\Models\Household;
+use App\Models\Neighborhood;
+use App\Models\Program;
+use App\Models\Resident;
+use App\Models\SiteSetting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -80,27 +85,72 @@ class LandingPageTest extends TestCase
 
     public function test_statistics_show_live_counts_from_database(): void
     {
-        $orangtua = DataOrangtua::create([
-            'nama_ayah' => 'Budi',
-            'nama_ibu' => 'Siti',
-            'alamat' => 'Bandung',
-            'no_telpon' => '081234567890',
+        $household = Household::create([
+            'neighborhood_id' => Neighborhood::create(['rw' => '11', 'rt' => '01'])->id,
+            'address' => 'Bandung',
         ]);
-        DataAnak::create([
-            'nik_anak' => '3273000000000001',
-            'nama_anak' => 'Ani',
-            'umur' => 2,
-            'IdOrangtua' => $orangtua->id,
+        Resident::create([
+            'household_id' => $household->id, 'name' => 'Ani', 'gender' => 'female',
+            'relationship' => 'child', 'birth_date' => now()->subMonths(14),
         ]);
-        DataKader::create(['nama_kader' => 'Wini', 'alamat' => 'Bandung', 'no_telpon' => '081200000000']);
+        Resident::create([
+            'household_id' => $household->id, 'name' => 'Budi', 'gender' => 'male',
+            'relationship' => 'head', 'birth_date' => '1990-01-01',
+        ]);
+        Cadre::create(['name' => 'Wini', 'position' => 'Ketua', 'tier' => 'leader']);
+        Cadre::create(['name' => 'Tidak aktif', 'position' => 'Kader Gizi', 'is_active' => false]);
 
         $response = $this->get('/');
 
         $response->assertOk();
-        $response->assertSee('Anak Terdata');
-        $response->assertSee('Keluarga Terdaftar');
-        $response->assertSee('Kader Bertugas');
+        $response->assertSee('Balita Terdata');
         $response->assertSeeInOrder(['stat-number">1<', 'stat-number">1<', 'stat-number">1<'], false);
+    }
+
+    public function test_cms_settings_override_config_defaults(): void
+    {
+        SiteSetting::put('tagline', 'Tagline dari CMS');
+        SiteSetting::put('vision', 'Visi dari CMS');
+        SiteSetting::put('mission', ['Misi satu dari CMS', 'Misi dua dari CMS']);
+        SiteSetting::put('schedule', 'Setiap Sabtu pertama');
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Tagline dari CMS')
+            ->assertSee('Visi dari CMS')
+            ->assertSee('Misi dua dari CMS')
+            ->assertSee('Setiap Sabtu pertama')
+            ->assertDontSee(config('posyandu.visi'));
+    }
+
+    public function test_cms_programs_faqs_and_gallery_replace_defaults(): void
+    {
+        Program::create(['title' => 'Program dari CMS', 'description' => 'Deskripsi CMS', 'icon' => 'bx bx-heart', 'sort_order' => 1]);
+        Program::create(['title' => 'Program Tersembunyi', 'description' => 'x', 'icon' => 'bx bx-heart', 'is_published' => false]);
+        Faq::create(['question' => 'Pertanyaan dari CMS?', 'answer' => 'Jawaban CMS']);
+        GalleryItem::create(['image_path' => 'gallery/uji.jpg', 'title' => 'Foto uji']);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Program dari CMS')
+            ->assertDontSee('Program Tersembunyi')
+            ->assertDontSee('Penimbangan dan Pemantauan Tumbuh Kembang')
+            ->assertSee('Pertanyaan dari CMS?')
+            ->assertSee('storage/gallery/uji.jpg', false);
+    }
+
+    public function test_organigram_uses_cadres_from_the_database_per_tier(): void
+    {
+        Cadre::create(['name' => 'Ketua Baru', 'position' => 'Ketua Posyandu', 'tier' => 'leader']);
+        Cadre::create(['name' => 'Siti Bendahara', 'position' => 'Bendahara', 'tier' => 'officer']);
+        Cadre::create(['name' => 'Disembunyikan', 'position' => 'Kader Rahasia', 'tier' => 'section', 'show_on_website' => false]);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Ketua Baru')
+            ->assertSee('Siti Bendahara')
+            ->assertDontSee('Kader Rahasia')
+            ->assertSee('Kader Imunisasi');
     }
 
     public function test_contact_details_are_hidden_when_not_configured(): void
@@ -148,7 +198,7 @@ class LandingPageTest extends TestCase
             $this->get('/')
                 ->assertOk()
                 ->assertSee('Posyandu Sedap Malam')
-                ->assertDontSee('Anak Terdata');
+                ->assertDontSee('Balita Terdata');
         } finally {
             config(['database.default' => $default]);
         }
@@ -156,7 +206,7 @@ class LandingPageTest extends TestCase
 
     public function test_login_link_points_to_login_page(): void
     {
-        $this->get('/')->assertSee(url('/login'), false);
-        $this->get('/login')->assertOk();
+        $this->get('/')->assertSee(url('/admin/login'), false);
+        $this->get('/admin/login')->assertOk();
     }
 }

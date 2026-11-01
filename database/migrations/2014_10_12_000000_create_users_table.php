@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Accounts that can sign in to the admin panel. Roles and permissions
+        // live in the spatie/laravel-permission tables (managed by Filament Shield).
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kader');
-            $table->string('jabatan')->nullable();
-            $table->string('alamat');
-            $table->string('no_telpon');
-            $table->string('username');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone', 20)->nullable();
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

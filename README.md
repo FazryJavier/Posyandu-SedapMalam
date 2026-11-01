@@ -1,66 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Posyandu Sedap Malam
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Information system for **Posyandu Sedap Malam** (RW 11, Sukaluyu, Cibeunying Kaler, Bandung). A *posyandu* is an Indonesian community health post for mothers and young children. The project has two parts:
 
-## About Laravel
+- **Public website** (`/`): posyandu profile, service flow, immunization schedule, health tips, gallery, cadre organization chart, FAQ and location. Its content is managed through the CMS.
+- **Admin panel** (`/admin`): household registration per RT (neighborhood unit), monthly weighing records, child growth charts, cadre directory, user accounts and roles (RBAC), and the website CMS.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![CI](https://github.com/FazryJavier/Posyandu-SedapMalam/actions/workflows/ci.yml/badge.svg)](https://github.com/FazryJavier/Posyandu-SedapMalam/actions/workflows/ci.yml)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> The public website and the admin UI are in Indonesian. Code, database schema and documentation are in English.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech stack
 
-## Learning Laravel
+| Area | Technology |
+|---|---|
+| Backend | PHP 8.4, Laravel 12 |
+| Admin panel | Filament 4 (Livewire) |
+| RBAC | spatie/laravel-permission + Filament Shield |
+| Database | MySQL 8 (tests use in-memory SQLite) |
+| Public website | Blade, Bootstrap 5, Arsha template (BootstrapMade) |
+| Testing | PHPUnit 11 |
+| CI | GitHub Actions |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Why Filament instead of AdminLTE?** AdminLTE is only an HTML theme, so every CRUD screen, validation rule and authorization check would have to be hand-written. Filament ships ready-made CRUD, forms, tables, filters, charts, authentication and RBAC.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.4 with the `mbstring`, `pdo_mysql`, `pdo_sqlite`, `intl`, `xml`, `fileinfo` and `bcmath` extensions
+- Composer 2
+- MySQL 8 (or a compatible MariaDB)
 
-## Laravel Sponsors
+## Getting started
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone https://github.com/FazryJavier/Posyandu-SedapMalam.git
+cd Posyandu-SedapMalam
 
-### Premium Partners
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Create an empty database and adjust the `DB_*` values in `.env` (defaults: database `sedapmalam`, user `root`, empty password):
+
+```sql
+CREATE DATABASE sedapmalam CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Set the first super admin in `.env` (read only while seeding, never commit it):
+
+```dotenv
+ADMIN_NAME="Administrator"
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=use-a-strong-password
+```
+
+```bash
+php artisan migrate --seed
+php artisan storage:link
+php artisan serve
+```
+
+- Public website: <http://127.0.0.1:8000>
+- Admin panel: <http://127.0.0.1:8000/admin> (sign in with `ADMIN_EMAIL` and `ADMIN_PASSWORD`)
+
+`--seed` creates roles and permissions, the super admin from `.env`, and fills the CMS with the default text from `config/posyandu.php`. The seeders are safe to re-run: existing rows are kept and the password of an existing account is never changed. `storage:link` is required so uploaded gallery photos are served.
+
+If `ADMIN_EMAIL` / `ADMIN_PASSWORD` are empty, no admin is created. You can create one later with:
+
+```bash
+php artisan make:filament-user
+php artisan shield:super-admin
+```
+
+> Do not run `migrate:fresh`, `migrate:refresh` or `db:wipe` against a database that holds real data. They drop every table.
+
+Laragon users can start MySQL from Laragon, create the `sedapmalam` database and run the commands above.
+
+## Roles and permissions (RBAC)
+
+Permissions are generated by Filament Shield and named `Action:Entity` (for example `Update:Resident`). Accounts without a role, or deactivated accounts, cannot open the panel.
+
+| Role | Scope |
+|---|---|
+| `super_admin` | Everything, including role and permission management (the *Roles* menu) |
+| `admin` | Manages RT/RW, households, residents, sessions, cadres and the CMS; can create and edit accounts but cannot change roles or force-delete |
+| `cadre` | Records households, residents and weighing; read-only access to RT/RW and cadre data; cannot delete |
+| `content_editor` | Website content only (settings, programs, FAQ, gallery) plus read-only cadre data |
+
+Roles can be adjusted in the panel under *Roles*. The default matrix lives in `database/seeders/RolesAndPermissionsSeeder.php`.
+
+## Data model
+
+Data is split into **resident data** (RT, households, residents, weighing) and **internal data** (cadres, accounts, roles), plus the **CMS** tables for the public website.
+
+```mermaid
+erDiagram
+    neighborhoods ||--o{ households : "per RT"
+    households ||--o{ residents : "family members"
+    residents ||--o{ residents : "father / mother"
+    residents ||--o{ growth_records : "growth history"
+    posyandu_sessions ||--o{ growth_records : "weighing"
+    users ||--o| cadres : "optional login"
+    users }o--o{ roles : "RBAC"
+```
+
+| Table | Contents |
+|---|---|
+| `neighborhoods` | RW/RT pairs (unique per RW and RT) and the RT head |
+| `households` | One family card (KK) per RT: card number, address, clean water, sanitary toilet, social assistance, health insurance |
+| `residents` | Every household member (head, spouse, child, parent, sibling, other) with NIK, gender, birth data, father/mother links and status (active, moved, deceased) |
+| `posyandu_sessions` | One posyandu day (usually monthly) |
+| `growth_records` | Junction between sessions and children: weight, height, head and arm circumference, age in months, BMI. A child has at most one measurement per session |
+| `cadres` | Cadre directory and organization chart (leader, officers, section cadres); can be linked to a login account |
+| `users`, `roles`, `permissions` | Admin accounts and RBAC |
+| `site_settings`, `programs`, `faqs`, `gallery_items` | Public website content managed by the CMS |
+
+A child's age and BMI (`weight / height²`) are computed automatically when a measurement is saved. The growth chart (BMI and weight per month) is shown on the resident edit page.
+
+## Managing website content (CMS)
+
+Under **Konten Website** in the admin panel:
+
+- **Pengaturan Website** (site settings): tagline, schedule, about us, target audience, vision, mission, address and contact details.
+- **Program Kerja**, **FAQ**, **Galeri Foto**: add, edit, reorder and hide items.
+- **Kader** (under Internal): cadre records with a *show on website* option that feeds the organization chart.
+
+Database content overrides the defaults in [`config/posyandu.php`](config/posyandu.php). If the CMS tables are empty, or the database is unreachable, the website still renders from those defaults.
+
+## Running the tests
+
+```bash
+php artisan test
+```
+
+Tests run on in-memory SQLite (see `phpunit.xml`), so they need no MySQL and never touch your local database. They cover the public pages and CMS, the schema, relations and constraints, per-role authorization and the Filament form flows (RT, households, family members, weighing and site settings).
+
+```bash
+composer audit
+```
+
+## Continuous integration
+
+GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs on every pull request to `main` and every push to `main`: install dependencies, `composer audit`, then `php artisan test` on PHP 8.4.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Branch from `main`, for example `feat/short-description`. Do not commit directly to `main`.
+2. Use [Conventional Commits](https://www.conventionalcommits.org/) for commit messages.
+3. Make sure `php artisan test` passes, then open a pull request to `main` describing the change and how it was tested.
 
-## Code of Conduct
+## Security and privacy
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- NIK, family card numbers and children's health data are personal data. Restrict access through roles, do not share exports, and never commit `.env` files or database dumps.
+- Super admin credentials are read from `.env` only while seeding.
+- Use HTTPS and strong passwords in production, and set `APP_DEBUG=false`.
 
-## Security Vulnerabilities
+## Credits
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Public website template: [Arsha](https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/) by BootstrapMade.
+- Admin panel: [Filament](https://filamentphp.com/) and [Filament Shield](https://github.com/bezhanSalleh/filament-shield).

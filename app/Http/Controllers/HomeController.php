@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataAnak;
-use App\Models\DataKader;
-use App\Models\DataOrangtua;
+use App\Models\Cadre;
+use App\Models\Household;
+use App\Models\Resident;
+use App\Support\SiteContent;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -14,7 +15,7 @@ class HomeController extends Controller
     public function index(): View
     {
         return view('User.home', [
-            'posyandu' => config('posyandu'),
+            'posyandu' => SiteContent::landing(),
             'stats' => $this->stats(),
         ]);
     }
@@ -29,9 +30,9 @@ class HomeController extends Controller
     {
         try {
             return [
-                'anak' => DataAnak::count(),
-                'keluarga' => DataOrangtua::count(),
-                'kader' => DataKader::count(),
+                'children' => Resident::toddlers()->count(),
+                'households' => Household::count(),
+                'cadres' => Cadre::where('is_active', true)->count(),
             ];
         } catch (Throwable $e) {
             Log::warning('Statistik landing page tidak tersedia: '.$e->getMessage());
