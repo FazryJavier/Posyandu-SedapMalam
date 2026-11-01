@@ -12,7 +12,6 @@ class DataAnak extends Model
     protected $table='data_anaks';
     protected $primaryKey = 'nik_anak';
     protected $guarded=[];
-    protected $cascade = ['deleting'];
 
     public function dataorangtua()
     {

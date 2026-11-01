@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\TimbangAnakController;
 use App\Http\Controllers\GrafikPerkembanganController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('User.home');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
