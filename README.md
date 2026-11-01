@@ -107,7 +107,7 @@ erDiagram
 | Table | Contents |
 |---|---|
 | `neighborhoods` | RW/RT pairs (unique per RW and RT) and the RT head |
-| `households` | One family card (KK) per RT: card number, address, clean water, sanitary toilet, social assistance, health insurance |
+| `households` | One family card (KK) per RT: card number, address, clean water, sanitary toilet, social assistance, health insurance, private access token for the family page |
 | `residents` | Every household member (head, spouse, child, parent, sibling, other) with NIK, gender, birth data, father/mother links and status (active, moved, deceased) |
 | `posyandu_sessions` | One posyandu day (usually monthly) |
 | `growth_records` | Junction between sessions and children: weight, height, head and arm circumference, age in months, BMI. A child has at most one measurement per session |
@@ -116,6 +116,23 @@ erDiagram
 | `site_settings`, `programs`, `faqs`, `gallery_items` | Public website content managed by the CMS |
 
 A child's age and BMI (`weight / height²`) are computed automatically when a measurement is saved. The growth chart (BMI and weight per month) is shown on the resident edit page.
+
+## Family progress page (no login)
+
+Parents can follow their children's growth without an account. A cadre opens **Keluarga (KK)** in the admin panel, clicks the QR icon (*Link keluarga*) and hands over the private link or QR code, or sends it through WhatsApp. The family then opens `/keluarga/{token}` on any phone.
+
+What the page shows: for each active toddler in the household, the latest weight, height, head and arm circumference and BMI, simple charts, the measurement history, a plain-language note based on the weight trend (rising, flat, falling, or not rising twice in a row) and the next posyandu date.
+
+How privacy is protected without a login:
+
+- The link contains a random 40-character token (`households.access_token`). It is the only credential, so it cannot be guessed, and unknown, revoked and deleted links all return the same `404`.
+- The page never shows NIK, family card number, address, phone numbers, adults or other households.
+- Cadres can **regenerate** the link (the old one stops working immediately) or **revoke** access at any time, and see when the family last opened it.
+- Responses send `noindex`, `no-store` and `no-referrer`; `robots.txt` disallows `/keluarga/`; the page loads no external fonts, scripts or images, and the QR code is generated on the server, so the token never reaches a third party.
+- Requests are rate limited (30 per minute per IP).
+- Requires the `Update:Household` permission to create or manage links (admin and cadre roles).
+
+Limitations: anyone who receives the link can see the page, so tell parents not to share it. The note is a weight-trend hint, not a diagnosis.
 
 ## Managing website content (CMS)
 

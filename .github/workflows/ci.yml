@@ -27,7 +27,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: mbstring, intl, pdo, pdo_sqlite, pdo_mysql, sqlite3, fileinfo, tokenizer, xml, ctype, json, bcmath
+          extensions: mbstring, intl, xmlwriter, pdo, pdo_sqlite, pdo_mysql, sqlite3, fileinfo, tokenizer, xml, ctype, json, bcmath
           coverage: none
           tools: composer:v2
 

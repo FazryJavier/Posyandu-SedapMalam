@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Households\Pages;
 
+use App\Filament\Actions\FamilyLinkActions;
 use App\Filament\Resources\Households\HouseholdResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -15,6 +16,7 @@ class EditHousehold extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            ...FamilyLinkActions::all(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),
